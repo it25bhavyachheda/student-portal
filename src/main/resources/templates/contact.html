@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        /* =========================================================
+           CONTACT PAGE - CENTERED CAMPUS SECTION
+           ========================================================= */
+
+        .contact-info-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 25px 50px;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+
+            text-align: center;
+        }
+
+
+        .contact-info-card {
+            padding: 30px 22px;
+
+            background: rgba(255, 255, 255, 0.035);
+
+            border: 1px solid rgba(245, 182, 45, 0.30);
+
+            border-radius: 14px;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .contact-info-card:hover {
+            transform: translateY(-6px);
+
+            border-color: #f5b62d;
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .contact-info-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+
+        .contact-info-card h3 {
+            color: #ffffff;
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: 21px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .contact-info-card p {
+            color: #cbd8e9;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin: 0;
+        }
+
+
+        /* =========================================================
+           FIND OUR CAMPUS
+           ========================================================= */
+
+        .campus-section {
+            max-width: 1100px;
+            margin: 0 auto;
+
+            padding: 55px 25px 80px;
+
+            text-align: center;
+        }
+
+
+        .campus-content {
+            max-width: 750px;
+            margin: 0 auto 35px;
+        }
+
+
+        .campus-content .section-label {
+            display: block;
+            margin-bottom: 12px;
+        }
+
+
+        .campus-content h2 {
+            margin-bottom: 18px;
+        }
+
+
+        .campus-address {
+            color: #cbd8e9;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            margin-bottom: 12px;
+        }
+
+
+        .campus-gps {
+            color: #d4a84a;
+
+            font-weight: 600;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================================================
+           DUMMY GPS MAP
+           ========================================================= */
+
+        .campus-map {
+            position: relative;
+
+            max-width: 900px;
+            height: 360px;
+
+            margin: 0 auto;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            border: 1px solid rgba(212, 168, 74, 0.45);
+
+            background:
+                linear-gradient(25deg,
+                    transparent 46%,
+                    rgba(212, 168, 74, 0.15) 47%,
+                    rgba(212, 168, 74, 0.15) 49%,
+                    transparent 50%),
+                linear-gradient(155deg,
+                    transparent 48%,
+                    rgba(255, 255, 255, 0.08) 49%,
+                    rgba(255, 255, 255, 0.08) 51%,
+                    transparent 52%),
+                #102747;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.30);
+        }
+
+
+        /* Roads */
+
+        .map-road {
+            position: absolute;
+
+            background: rgba(220, 226, 235, 0.20);
+
+            border-radius: 20px;
+        }
+
+
+        .road-one {
+            width: 120%;
+            height: 28px;
+
+            top: 48%;
+            left: -10%;
+
+            transform: rotate(-12deg);
+        }
+
+
+        .road-two {
+            width: 110%;
+            height: 20px;
+
+            top: 20%;
+            left: -5%;
+
+            transform: rotate(28deg);
+        }
+
+
+        .road-three {
+            width: 22px;
+            height: 120%;
+
+            left: 65%;
+            top: -10%;
+
+            transform: rotate(20deg);
+        }
+
+
+        .road-four {
+            width: 18px;
+            height: 120%;
+
+            left: 32%;
+            top: -10%;
+
+            transform: rotate(-25deg);
+        }
+
+
+        /* Green areas */
+
+        .map-area {
+            position: absolute;
+
+            background: rgba(76, 140, 95, 0.20);
+
+            border-radius: 35px;
+        }
+
+
+        .area-one {
+            width: 180px;
+            height: 90px;
+
+            top: 35px;
+            left: 45px;
+
+            transform: rotate(-10deg);
+        }
+
+
+        .area-two {
+            width: 150px;
+            height: 80px;
+
+            bottom: 35px;
+            right: 45px;
+
+            transform: rotate(15deg);
+        }
+
+
+        /* Campus marker */
+
+        .campus-marker {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        .gps-pin {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #d4a84a;
+
+            color: #07152d;
+
+            border-radius: 50% 50% 50% 0;
+
+            transform: rotate(-45deg);
+
+            font-size: 25px;
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.35);
+        }
+
+
+        .gps-pin span {
+            transform: rotate(45deg);
+        }
+
+
+        .campus-label {
+            margin-top: 20px;
+
+            padding: 10px 18px;
+
+            background: rgba(7, 21, 45, 0.95);
+
+            border: 1px solid rgba(212, 168, 74, 0.55);
+
+            border-radius: 8px;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        .map-caption {
+            margin-top: 15px;
+
+            color: #8f9caf;
+
+            font-size: 12px;
+
+            font-style: italic;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE DESIGN
+           ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .contact-info-section {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 750px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .contact-info-section {
+                grid-template-columns: 1fr;
+
+                max-width: 500px;
+
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+
+            .campus-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+
+            .campus-map {
+                height: 300px;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .campus-map {
+                height: 250px;
+            }
+
+
+            .campus-label {
+                font-size: 12px;
+
+                padding: 8px 12px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         NAVBAR
+         ========================================================= -->
+
+    <header class="navbar">
+
+        <div class="navbar-container">
+
+            <a th:href="@{/}" class="college-brand">
+
+                <img th:src="@{/images/logo.jpg}" alt="Saraswati College of Engineering Logo" class="college-logo">
+
+                <div class="college-name">
+
+                    <h1>
+                        Saraswati College of Engineering
+                    </h1>
+
+                    <p>
+                        LEARN <span>•</span>
+                        INNOVATE <span>•</span>
+                        BUILD TOMORROW
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <nav class="navigation">
+
+                <a th:href="@{/home}" class="nav-link">
+                    Home
+                </a>
+
+                <a th:href="@{/about}" class="nav-link">
+                    About
+                </a>
+
+                <a th:href="@{/courses}" class="nav-link">
+                    Courses
+                </a>
+
+                <a th:href="@{/contact}" class="nav-link active">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <div class="auth-buttons">
+
+                <a th:href="@{/login}" class="login-btn">
+                    Login
+                </a>
+
+                <a th:href="@{/register}" class="register-btn">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             CONTACT HERO
+             ===================================================== -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="welcome-badge">
+                    GET IN TOUCH
+                </div>
+
+                <h2>
+                    Contact
+                    <span>Us</span>
+                </h2>
+
+                <p class="hero-description">
+                    Have a question or want to know more?
+                    We're happy to connect with you.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT INFORMATION
+             ===================================================== -->
+
+        <section class="contact-info-section">
+
+
+            <!-- ADDRESS -->
+
+            <div class="contact-info-card">
+
+                <div class="contact-info-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Address
+                </h3>
+
+                <p>
+                    Saraswati Knowledge Campus,<br>
+                    Sector 18, Navi Mumbai,<br>
+                    Maharashtra – 400706
+                </p>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="contact-info-card">
+
+                <div class="contact-info-icon">
+                    📧
+                </div>
+
+                <h3>
+                    Email
+                </h3>
+
+                <p>
+                    info@saraswatiec.edu.in
+                </p>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="contact-info-card">
+
+                <div class="contact-info-icon">
+                    📞
+                </div>
+
+                <h3>
+                    Contact
+                </h3>
+
+                <p>
+                    +91 98765 43210<br>
+                    +91 91234 56789
+                </p>
+
+            </div>
+
+
+            <!-- WHATSAPP -->
+
+            <div class="contact-info-card">
+
+                <div class="contact-info-icon">
+                    💬
+                </div>
+
+                <h3>
+                    WhatsApp
+                </h3>
+
+                <p>
+                    +91 98765 43210
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             FIND OUR CAMPUS
+             ===================================================== -->
+
+        <section class="campus-section">
+
+            <div class="campus-content">
+
+                <span class="section-label">
+                    LOCATION
+                </span>
+
+                <h2>
+                    Find Our Campus
+                </h2>
+
+                <p class="campus-address">
+                    Saraswati College of Engineering<br>
+                    Saraswati Knowledge Campus, Sector 18,<br>
+                    Navi Mumbai, Maharashtra – 400706
+                </p>
+
+                <p class="campus-gps">
+                    GPS: 19.0330° N, 73.0297° E
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 DUMMY GPS MAP
+                 ================================================= -->
+
+            <div class="campus-map">
+
+                <!-- Green areas -->
+
+                <div class="map-area area-one"></div>
+
+                <div class="map-area area-two"></div>
+
+
+                <!-- Roads -->
+
+                <div class="map-road road-one"></div>
+
+                <div class="map-road road-two"></div>
+
+                <div class="map-road road-three"></div>
+
+                <div class="map-road road-four"></div>
+
+
+                <!-- Campus Marker -->
+
+                <div class="campus-marker">
+
+                    <div class="gps-pin">
+                        <span>📍</span>
+                    </div>
+
+                    <div class="campus-label">
+                        Saraswati College of Engineering
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p class="map-caption">
+                *Illustrative campus location for demonstration purposes.
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="footer">
+
+        <p>
+            © <span id="currentYear">2026</span>
+            Saraswati College of Engineering.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <script th:src="@{/js/script.js}"></script>
+
+
+</body>
+
+</html>

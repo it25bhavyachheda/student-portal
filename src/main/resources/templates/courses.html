@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Courses | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        /* =========================================================
+           COURSES PAGE
+           ========================================================= */
+
+        .courses-page-section {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 40px 25px 80px;
+            text-align: center;
+        }
+
+        /* Three course cards */
+
+        .courses-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .course-card {
+            text-align: center;
+
+            padding: 35px 25px;
+
+            background: rgba(255, 255, 255, 0.035);
+
+            border: 1px solid rgba(245, 182, 45, 0.30);
+            border-radius: 14px;
+
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+
+            border-color: #f5b62d;
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .course-card .highlight-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .course-card h3 {
+            font-family: 'Playfair Display', serif;
+
+            color: #ffffff;
+
+            font-size: 21px;
+
+            line-height: 1.4;
+
+            margin-bottom: 12px;
+        }
+
+        .course-card p {
+            color: #cbd8e9;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           MORE COURSES SECTION
+           ========================================================= */
+
+        .courses-coming-soon {
+            max-width: 850px;
+
+            margin: 65px auto 0;
+
+            padding: 35px 30px;
+
+            text-align: center;
+
+            border-top: 1px solid rgba(245, 182, 45, 0.30);
+            border-bottom: 1px solid rgba(245, 182, 45, 0.30);
+        }
+
+        .courses-coming-soon .section-label {
+            display: block;
+
+            margin-bottom: 12px;
+        }
+
+        .courses-coming-soon h2 {
+            font-family: 'Playfair Display', serif;
+
+            color: #ffffff;
+
+            font-size: 32px;
+
+            margin-bottom: 12px;
+        }
+
+        .courses-coming-soon p {
+            color: #d5e0ef;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            max-width: 650px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================================
+           COURSES RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .courses-grid {
+                grid-template-columns: 1fr;
+
+                max-width: 550px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .courses-page-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .course-card {
+                padding: 30px 22px;
+            }
+
+            .course-card h3 {
+                font-size: 20px;
+            }
+
+            .courses-coming-soon {
+                padding: 30px 20px;
+                margin-top: 45px;
+            }
+
+            .courses-coming-soon h2 {
+                font-size: 27px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================================================
+         NAVBAR
+         ========================================================= -->
+
+    <header class="navbar">
+
+        <div class="navbar-container">
+
+            <a th:href="@{/}" class="college-brand">
+
+                <img th:src="@{/images/logo.jpg}" alt="Saraswati College of Engineering Logo" class="college-logo">
+
+                <div class="college-name">
+
+                    <h1>Saraswati College of Engineering</h1>
+
+                    <p>
+                        LEARN <span>•</span>
+                        INNOVATE <span>•</span>
+                        BUILD TOMORROW
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <nav class="navigation">
+
+                <a th:href="@{/home}" class="nav-link">
+                    Home
+                </a>
+
+                <a th:href="@{/about}" class="nav-link">
+                    About
+                </a>
+
+                <a th:href="@{/courses}" class="nav-link active">
+                    Courses
+                </a>
+
+                <a th:href="@{/contact}" class="nav-link">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <div class="auth-buttons">
+
+                <a th:href="@{/login}" class="login-btn">
+                    Login
+                </a>
+
+                <a th:href="@{/register}" class="register-btn">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="welcome-badge">
+                    ACADEMIC PROGRAMS
+                </div>
+
+                <h2>
+                    Explore Our
+                    <span>Courses</span>
+                </h2>
+
+                <p class="hero-description">
+                    Discover academic programs designed to build knowledge,
+                    technical skills and opportunities for future growth.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             COURSES
+             ===================================================== -->
+
+        <section class="courses-page-section">
+
+            <div class="courses-grid">
+
+
+                <!-- INFORMATION TECHNOLOGY -->
+
+                <div class="course-card">
+
+                    <div class="highlight-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Information Technology (IT)
+                    </h3>
+
+                    <p>
+                        Explore computing, software, information systems
+                        and technology-driven solutions.
+                    </p>
+
+                </div>
+
+
+                <!-- COMPUTER SCIENCE & ENGINEERING -->
+
+                <div class="course-card">
+
+                    <div class="highlight-icon">
+                        🖥️
+                    </div>
+
+                    <h3>
+                        Computer Science & Engineering (CSE)
+                    </h3>
+
+                    <p>
+                        Develop knowledge in computing, programming,
+                        software development and modern technologies.
+                    </p>
+
+                </div>
+
+
+                <!-- ELECTRONICS & TELECOMMUNICATION -->
+
+                <div class="course-card">
+
+                    <div class="highlight-icon">
+                        📡
+                    </div>
+
+                    <h3>
+                        Electronics & Telecommunication (EXTC)
+                    </h3>
+
+                    <p>
+                        Learn about electronics, communication systems
+                        and emerging technological applications.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 MORE COURSES
+                 ================================================= -->
+
+            <div class="courses-coming-soon">
+
+                <span class="section-label">
+                    MORE TO COME
+                </span>
+
+                <h2>
+                    More Opportunities Are Coming Soon!
+                </h2>
+
+                <p>
+                    We're expanding our academic offerings.
+                    Stay connected for more courses and programs.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="footer">
+
+        <p>
+            © <span id="currentYear">2026</span>
+            Saraswati College of Engineering.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

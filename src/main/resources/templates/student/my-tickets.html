@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Tickets | Student Portal</title>
+
+    <link rel="stylesheet" th:href="@{/css/student.css}">
+
+</head>
+
+<body class="student-page">
+
+
+    <aside class="student-sidebar">
+
+        <div class="student-brand">
+
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="student-logo">
+
+            <div class="student-brand-text">
+
+                <h2>Student Portal</h2>
+                <span>Saraswati College</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="student-navigation">
+
+            <a th:href="@{/student/dashboard}"
+               class="student-nav-link">
+
+                <span>📊</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a th:href="@{/student/examination}"
+               class="student-nav-link">
+
+                <span>📝</span>
+                <span>Examination</span>
+
+            </a>
+
+
+            <a th:href="@{/student/attendance}"
+               class="student-nav-link">
+
+                <span>📅</span>
+                <span>Attendance</span>
+
+            </a>
+
+
+            <a th:href="@{/student/submissions}"
+               class="student-nav-link">
+
+                <span>📤</span>
+                <span>Submissions</span>
+
+            </a>
+
+
+            <a th:href="@{/student/raise-ticket}"
+               class="student-nav-link">
+
+                <span>🎫</span>
+                <span>Raise Ticket</span>
+
+            </a>
+
+
+            <a th:href="@{/student/my-tickets}"
+               class="student-nav-link active">
+
+                <span>📋</span>
+                <span>My Tickets</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="student-sidebar-bottom">
+
+            <a th:href="@{/}" class="student-nav-link">
+
+                <span>⌂</span>
+                <span>Home</span>
+
+            </a>
+
+
+            <form th:action="@{/logout}" method="post">
+
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="student-nav-link logout-button">
+
+                    <span>↪</span>
+                    <span>Logout</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    <main class="student-main">
+
+
+        <header class="student-topbar">
+
+            <div>
+
+                <span class="student-page-label">
+                    STUDENT PORTAL
+                </span>
+
+                <h1>My Tickets</h1>
+
+            </div>
+
+
+            <div class="student-profile">
+
+                <div class="profile-icon">
+                    🎓
+                </div>
+
+                <div>
+
+                    <strong>Student</strong>
+
+                    <span>
+                        Academic Student
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="student-welcome">
+
+            <span class="section-label">
+                SUPPORT & TICKETS
+            </span>
+
+            <h2>Track Your Support Requests</h2>
+
+            <p>
+                View the status and details of support tickets
+                raised through the student portal.
+            </p>
+
+        </section>
+
+
+        <!-- TICKET STATISTICS -->
+        <section class="student-statistics">
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    🎫
+                </div>
+
+                <h3>4</h3>
+
+                <p>Total Tickets</p>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    ⏳
+                </div>
+
+                <h3>2</h3>
+
+                <p>Open Tickets</p>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    🔄
+                </div>
+
+                <h3>1</h3>
+
+                <p>Under Review</p>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    ✅
+                </div>
+
+                <h3>1</h3>
+
+                <p>Resolved</p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- TICKETS TABLE -->
+        <section class="student-section">
+
+            <div class="student-panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            TICKET HISTORY
+                        </span>
+
+                        <h3>My Support Tickets</h3>
+
+                    </div>
+
+
+                    <a th:href="@{/student/raise-ticket}"
+                       class="student-primary-button">
+
+                        + Raise Ticket
+
+                    </a>
+
+                </div>
+
+
+                <div class="student-table-container">
+
+                    <table class="student-table">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Ticket ID</th>
+                                <th>Subject</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr>
+
+                                <td>#1024</td>
+
+                                <td>
+                                    Examination Result Query
+                                </td>
+
+                                <td>
+                                    Academic
+                                </td>
+
+                                <td>
+                                    08 Oct 2026
+                                </td>
+
+                                <td>
+
+                                    <span class="status warning-status">
+                                        Under Review
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        Track
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>#1021</td>
+
+                                <td>
+                                    Attendance Record Query
+                                </td>
+
+                                <td>
+                                    Academic
+                                </td>
+
+                                <td>
+                                    05 Oct 2026
+                                </td>
+
+                                <td>
+
+                                    <span class="status pending-status">
+                                        Open
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        Track
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>#1018</td>
+
+                                <td>
+                                    Portal Login Issue
+                                </td>
+
+                                <td>
+                                    Technical
+                                </td>
+
+                                <td>
+                                    01 Oct 2026
+                                </td>
+
+                                <td>
+
+                                    <span class="status completed-status">
+                                        Resolved
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        View
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>#1014</td>
+
+                                <td>
+                                    Student Record Update
+                                </td>
+
+                                <td>
+                                    Administrative
+                                </td>
+
+                                <td>
+                                    28 Sep 2026
+                                </td>
+
+                                <td>
+
+                                    <span class="status completed-status">
+                                        Resolved
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        View
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="student-footer">
+
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Student Portal.
+            </p>
+
+        </footer>
+
+
+    </main>
+
+</body>
+
+</html>

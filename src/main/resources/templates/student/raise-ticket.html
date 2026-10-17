@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise Ticket | Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/student.css}">
+</head>
+
+<body class="student-page">
+
+    <aside class="student-sidebar">
+
+        <div class="student-brand">
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="student-logo">
+
+            <div class="student-brand-text">
+                <h2>Student Portal</h2>
+                <span>Saraswati College</span>
+            </div>
+        </div>
+
+        <nav class="student-navigation">
+            <a th:href="@{/student/dashboard}" class="student-nav-link">
+                <span>📊</span><span>Dashboard</span>
+            </a>
+
+            <a th:href="@{/student/examination}" class="student-nav-link">
+                <span>📝</span><span>Examination</span>
+            </a>
+
+            <a th:href="@{/student/attendance}" class="student-nav-link">
+                <span>📅</span><span>Attendance</span>
+            </a>
+
+            <a th:href="@{/student/submissions}" class="student-nav-link">
+                <span>📤</span><span>Submissions</span>
+            </a>
+
+            <a th:href="@{/student/raise-ticket}"
+               class="student-nav-link active">
+                <span>🎫</span><span>Raise Ticket</span>
+            </a>
+
+            <a th:href="@{/student/my-tickets}" class="student-nav-link">
+                <span>📋</span><span>My Tickets</span>
+            </a>
+        </nav>
+
+        <div class="student-sidebar-bottom">
+            <a th:href="@{/}" class="student-nav-link">
+                <span>⌂</span><span>Home</span>
+            </a>
+
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="student-nav-link logout-button">
+                    <span>↪</span><span>Logout</span>
+                </button>
+            </form>
+        </div>
+
+    </aside>
+
+    <main class="student-main">
+
+        <header class="student-topbar">
+            <div>
+                <span class="student-page-label">STUDENT PORTAL</span>
+                <h1>Raise Ticket</h1>
+            </div>
+
+            <div class="student-profile">
+                <div class="profile-icon">🎓</div>
+                <div>
+                    <strong>Student</strong>
+                    <span>Academic Student</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="student-welcome">
+            <span class="section-label">SUPPORT &amp; TICKETS</span>
+            <h2>How Can We Help You?</h2>
+            <p>
+                Raise a support request for academic,
+                technical or administrative assistance.
+            </p>
+        </section>
+
+        <!-- SUPPORT CATEGORIES -->
+        <section class="student-section">
+            <div class="ticket-category-grid">
+
+                <div class="ticket-category-card">
+                    <div class="category-icon">📚</div>
+                    <h3>Academic Support</h3>
+                    <p>
+                        Questions related to examinations,
+                        marks, attendance or academic activities.
+                    </p>
+                </div>
+
+                <div class="ticket-category-card">
+                    <div class="category-icon">💻</div>
+                    <h3>Technical Support</h3>
+                    <p>
+                        Report technical issues related to
+                        the student portal or online services.
+                    </p>
+                </div>
+
+                <div class="ticket-category-card">
+                    <div class="category-icon">🏢</div>
+                    <h3>Administrative Support</h3>
+                    <p>
+                        Raise requests related to college
+                        administration and student services.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TICKET FORM -->
+        <section class="student-section">
+            <div class="student-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <span class="section-label">NEW SUPPORT REQUEST</span>
+                        <h3>Raise a Ticket</h3>
+                        <p>Provide the details of your request below.</p>
+                    </div>
+                </div>
+
+                <!-- Success and error messages -->
+                <div th:if="${message}"
+                     class="ticket-message ticket-success"
+                     role="status"
+                     th:text="${message}">
+                </div>
+
+                <div th:if="${error}"
+                     class="ticket-message ticket-error"
+                     role="alert"
+                     th:text="${error}">
+                </div>
+
+                <form class="student-form"
+                      th:action="@{/student/raise-ticket}"
+                      method="post">
+
+                    <input type="hidden"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}">
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+
+                        <select id="category"
+                                name="category"
+                                required>
+
+                            <option value="" disabled selected>
+                                Select a category
+                            </option>
+
+                            <option value="ACADEMIC">
+                                Academic Support
+                            </option>
+
+                            <option value="ATTENDANCE">
+                                Attendance
+                            </option>
+
+                            <option value="EXAMINATION">
+                                Examination
+                            </option>
+
+                            <option value="SUBMISSION">
+                                Submission
+                            </option>
+
+                            <option value="TECHNICAL">
+                                Technical Support
+                            </option>
+
+                            <option value="OTHER">
+                                Administrative / Other
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+
+                        <input type="text"
+                               id="subject"
+                               name="subject"
+                               placeholder="Enter ticket subject"
+                               maxlength="150"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Description</label>
+
+                        <textarea id="message"
+                                  name="description"
+                                  rows="5"
+                                  maxlength="2000"
+                                  placeholder="Describe your issue or request..."
+                                  required></textarea>
+                    </div>
+
+                    <div class="ticket-form-actions">
+                        <button type="submit"
+                                class="student-primary-button">
+                            Submit Ticket
+                        </button>
+
+                        <a th:href="@{/student/my-tickets}"
+                           class="student-secondary-button">
+                            View My Tickets
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+        <footer class="student-footer">
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Student Portal.
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

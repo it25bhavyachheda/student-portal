@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Revaluation Requests | Educator Portal</title>
+
+    <link rel="stylesheet" th:href="@{/css/educator.css}">
+
+</head>
+
+
+<body class="educator-page">
+
+
+    <!-- SIDEBAR -->
+    <aside class="educator-sidebar">
+
+
+        <div class="educator-brand">
+
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="educator-logo">
+
+            <div class="educator-brand-text">
+
+                <h2>Educator Portal</h2>
+                <span>Saraswati College</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="educator-navigation">
+
+
+            <a th:href="@{/educator/dashboard}" class="educator-nav-link">
+
+                <span>📊</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a th:href="@{/educator/examination}" class="educator-nav-link">
+
+                <span>📝</span>
+                <span>Examination</span>
+
+            </a>
+
+
+            <a th:href="@{/educator/attendance}" class="educator-nav-link">
+
+                <span>📅</span>
+                <span>Attendance</span>
+
+            </a>
+
+
+            <a th:href="@{/educator/submissions}" class="educator-nav-link">
+
+                <span>📤</span>
+                <span>Submissions</span>
+
+            </a>
+
+
+            <a th:href="@{/educator/revaluation-requests}"
+               class="educator-nav-link active">
+
+                <span>🔄</span>
+                <span>Revaluation Requests</span>
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="educator-sidebar-bottom">
+
+
+            <a th:href="@{/}" class="educator-nav-link">
+
+                <span>⌂</span>
+                <span>Home</span>
+
+            </a>
+
+
+            <form th:action="@{/logout}" method="post">
+
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="educator-nav-link logout-button">
+
+                    <span>↪</span>
+                    <span>Logout</span>
+
+                </button>
+
+            </form>
+
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="educator-main">
+
+
+        <header class="educator-topbar">
+
+
+            <div>
+
+                <span class="educator-page-label">
+                    EDUCATOR PORTAL
+                </span>
+
+                <h1>Revaluation Requests</h1>
+
+            </div>
+
+
+            <div class="educator-profile">
+
+                <div class="profile-icon">
+                    👩‍🏫
+                </div>
+
+                <div>
+
+                    <strong>Educator</strong>
+
+                    <span>
+                        Academic Faculty
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+        <!-- INTRO -->
+        <section class="educator-welcome">
+
+            <span class="section-label">
+                REVALUATION MANAGEMENT
+            </span>
+
+            <h2>Review Student Revaluation Requests</h2>
+
+            <p>
+                Review requests raised by students regarding
+                their examination results and marks.
+            </p>
+
+        </section>
+
+
+        <!-- SUMMARY CARDS -->
+        <section class="educator-section">
+
+
+            <div class="educator-card-grid">
+
+
+                <div class="educator-action-card">
+
+                    <div class="action-card-icon">
+                        ⏳
+                    </div>
+
+                    <h3>Pending Requests</h3>
+
+                    <p>
+                        Review revaluation requests that
+                        require educator action.
+                    </p>
+
+                    <a href="#" class="action-card-button">
+                        View Pending →
+                    </a>
+
+                </div>
+
+
+                <div class="educator-action-card">
+
+                    <div class="action-card-icon">
+                        ✅
+                    </div>
+
+                    <h3>Processed Requests</h3>
+
+                    <p>
+                        View requests that have already
+                        been reviewed and processed.
+                    </p>
+
+                    <a href="#" class="action-card-button">
+                        View History →
+                    </a>
+
+                </div>
+
+
+                <div class="educator-action-card">
+
+                    <div class="action-card-icon">
+                        📋
+                    </div>
+
+                    <h3>Request Records</h3>
+
+                    <p>
+                        Review the complete history of
+                        student revaluation requests.
+                    </p>
+
+                    <a href="#" class="action-card-button">
+                        View Records →
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- REQUEST TABLE -->
+        <section class="educator-section">
+
+
+            <div class="educator-panel">
+
+
+                <div class="panel-header">
+
+
+                    <div>
+
+                        <span class="section-label">
+                            REQUEST MANAGEMENT
+                        </span>
+
+                        <h3>Recent Revaluation Requests</h3>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="educator-table-container">
+
+
+                    <table class="educator-table">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Student</th>
+                                <th>Examination</th>
+                                <th>Subject</th>
+                                <th>Current Marks</th>
+                                <th>Request Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr>
+
+                                <td>Student 01</td>
+                                <td>Mid Semester</td>
+                                <td>Data Structures</td>
+                                <td>62 / 100</td>
+                                <td>08 Oct 2026</td>
+
+                                <td>
+                                    <span class="status warning-status">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        Review
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Student 02</td>
+                                <td>Internal Assessment</td>
+                                <td>Database Systems</td>
+                                <td>58 / 100</td>
+                                <td>07 Oct 2026</td>
+
+                                <td>
+                                    <span class="status warning-status">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        Review
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>Student 03</td>
+                                <td>Unit Test</td>
+                                <td>Operating Systems</td>
+                                <td>71 / 100</td>
+                                <td>05 Oct 2026</td>
+
+                                <td>
+                                    <span class="status completed-status">
+                                        Processed
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <button class="table-button">
+                                        View
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="educator-footer">
+
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Educator Portal.
+            </p>
+
+        </footer>
+
+
+    </main>
+
+</body>
+
+</html>

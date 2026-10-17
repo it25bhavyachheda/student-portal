@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/student.css}">
+
+</head>
+
+<body class="student-page">
+
+
+    <!-- SIDEBAR -->
+    <aside class="student-sidebar">
+
+        <div class="student-brand">
+
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="student-logo">
+
+            <div class="student-brand-text">
+
+                <h2>Student Portal</h2>
+
+                <span>Saraswati College</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="student-navigation">
+
+            <a th:href="@{/student/dashboard}"
+               class="student-nav-link active">
+
+                <span>📊</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a th:href="@{/student/examination}"
+               class="student-nav-link">
+
+                <span>📝</span>
+                <span>Examination</span>
+
+            </a>
+
+
+            <a th:href="@{/student/attendance}"
+               class="student-nav-link">
+
+                <span>📅</span>
+                <span>Attendance</span>
+
+            </a>
+
+
+            <a th:href="@{/student/submissions}"
+               class="student-nav-link">
+
+                <span>📤</span>
+                <span>Submissions</span>
+
+            </a>
+
+
+            <a th:href="@{/student/raise-ticket}"
+               class="student-nav-link">
+
+                <span>🎫</span>
+                <span>Raise Ticket</span>
+
+            </a>
+
+
+            <a th:href="@{/student/my-tickets}"
+               class="student-nav-link">
+
+                <span>📋</span>
+                <span>My Tickets</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="student-sidebar-bottom">
+
+            <a th:href="@{/}" class="student-nav-link">
+
+                <span>⌂</span>
+                <span>Home</span>
+
+            </a>
+
+
+            <form th:action="@{/logout}" method="post">
+
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="student-nav-link logout-button">
+
+                    <span>↪</span>
+                    <span>Logout</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="student-main">
+
+
+        <!-- TOPBAR -->
+        <header class="student-topbar">
+
+            <div>
+
+                <span class="student-page-label">
+                    STUDENT PORTAL
+                </span>
+
+                <h1>Student Dashboard</h1>
+
+            </div>
+
+
+            <div class="student-profile">
+
+                <div class="profile-icon">
+                    🎓
+                </div>
+
+                <div>
+
+                    <strong>Student</strong>
+
+                    <span>
+                        Academic Student
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- WELCOME -->
+        <section class="student-welcome">
+
+            <span class="section-label">
+                WELCOME BACK
+            </span>
+
+            <h2>Track Your Academic Journey</h2>
+
+            <p>
+                Stay updated with your examination results,
+                attendance, submissions and support requests
+                through your student portal.
+            </p>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+        <section class="student-statistics">
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    📝
+                </div>
+
+                <h3>8</h3>
+
+                <p>Examinations</p>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    📅
+                </div>
+
+                <h3>82%</h3>
+
+                <p>Attendance</p>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    📤
+                </div>
+
+                <h3>3</h3>
+
+                <p>Pending Submissions</p>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <div class="student-stat-icon">
+                    🎫
+                </div>
+
+                <h3>2</h3>
+
+                <p>Open Tickets</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACCESS -->
+        <section class="student-section">
+
+            <div class="student-section-heading">
+
+                <span class="section-label">
+                    QUICK ACCESS
+                </span>
+
+                <h3>Academic Services</h3>
+
+            </div>
+
+
+            <div class="student-card-grid">
+
+
+                <div class="student-action-card">
+
+                    <div class="action-card-icon">
+                        📝
+                    </div>
+
+                    <h3>Examination</h3>
+
+                    <p>
+                        View examination results, marks and
+                        submit revaluation requests.
+                    </p>
+
+                    <a th:href="@{/student/examination}"
+                       class="action-card-button">
+
+                        Open Examination →
+
+                    </a>
+
+                </div>
+
+
+                <div class="student-action-card">
+
+                    <div class="action-card-icon">
+                        📅
+                    </div>
+
+                    <h3>Attendance</h3>
+
+                    <p>
+                        Monitor your attendance percentage
+                        and attendance records.
+                    </p>
+
+                    <a th:href="@{/student/attendance}"
+                       class="action-card-button">
+
+                        View Attendance →
+
+                    </a>
+
+                </div>
+
+
+                <div class="student-action-card">
+
+                    <div class="action-card-icon">
+                        📤
+                    </div>
+
+                    <h3>Submissions</h3>
+
+                    <p>
+                        Check pending assignments and
+                        previously submitted work.
+                    </p>
+
+                    <a th:href="@{/student/submissions}"
+                       class="action-card-button">
+
+                        View Submissions →
+
+                    </a>
+
+                </div>
+
+
+                <div class="student-action-card">
+
+                    <div class="action-card-icon">
+                        🎫
+                    </div>
+
+                    <h3>Support & Tickets</h3>
+
+                    <p>
+                        Raise a support ticket and track
+                        the status of your requests.
+                    </p>
+
+                    <a th:href="@{/student/my-tickets}"
+                       class="action-card-button">
+
+                        View Tickets →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOWER PANELS -->
+        <section class="student-dashboard-grid">
+
+
+            <!-- RECENT ACTIVITY -->
+            <div class="student-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            RECENT ACTIVITY
+                        </span>
+
+                        <h3>Latest Updates</h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="student-activity-list">
+
+
+                    <div class="student-activity-item">
+
+                        <div class="activity-icon">
+                            📝
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Data Structures Result Published
+                            </strong>
+
+                            <span>
+                                Examination result is now available.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="student-activity-item">
+
+                        <div class="activity-icon">
+                            📤
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Assignment Due Soon
+                            </strong>
+
+                            <span>
+                                Database Systems assignment is pending.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="student-activity-item">
+
+                        <div class="activity-icon">
+                            🎫
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Ticket #1024 Updated
+                            </strong>
+
+                            <span>
+                                Your support ticket is under review.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDANCE -->
+            <div class="student-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            ATTENDANCE
+                        </span>
+
+                        <h3>Current Status</h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="student-activity-list">
+
+
+                    <div class="student-activity-item">
+
+                        <div class="activity-icon">
+                            📅
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Overall Attendance
+                            </strong>
+
+                            <span>
+                                Current attendance: 82%
+                            </span>
+
+                        </div>
+
+                        <span class="status active-status">
+                            Good
+                        </span>
+
+                    </div>
+
+
+                    <div class="student-activity-item">
+
+                        <div class="activity-icon">
+                            ⚠️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Attendance Reminder
+                            </strong>
+
+                            <span>
+                                Maintain regular attendance.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="student-footer">
+
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Student Portal.
+            </p>
+
+        </footer>
+
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>First-Time User | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a th:href="@{/}" class="brand">
+
+                <img th:src="@{/images/logo.jpg}" alt="Saraswati College of Engineering Logo" class="college-logo">
+
+                <div class="college-name">
+
+                    <h1>Saraswati College of Engineering</h1>
+
+                    <p>
+                        Empowering Minds, Shaping Futures
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <nav class="main-navigation">
+
+                <a th:href="@{/home}" class="nav-link">
+                    Home
+                </a>
+
+                <a th:href="@{/about}" class="nav-link">
+                    About
+                </a>
+
+                <a th:href="@{/courses}" class="nav-link">
+                    Courses
+                </a>
+
+                <a th:href="@{/contact}" class="nav-link">
+                    Contact
+                </a>
+
+                <a th:href="@{/login}" class="nav-link">
+                    Login
+                </a>
+
+                <a th:href="@{/register}" class="nav-link">
+                    Register
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main class="auth-page first-time-page">
+
+        <section class="auth-container">
+
+            <div class="auth-card first-time-card">
+
+
+                <div class="auth-header">
+
+                    <div class="welcome-icon">
+                        ✦
+                    </div>
+
+                    <h2>Welcome to the Academic Portal</h2>
+
+                    <p>
+                        First time using the Saraswati College
+                        academic management system?
+                    </p>
+
+                </div>
+
+
+                <div class="first-time-content">
+
+
+                    <div class="first-time-step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>Create Your Account</h3>
+
+                            <p>
+                                Register using your basic details and
+                                select the appropriate role.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="first-time-step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>Login Securely</h3>
+
+                            <p>
+                                Use your registered email address and
+                                password to access the portal.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="first-time-step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>Access Your Role</h3>
+
+                            <p>
+                                Your account will provide access to the
+                                features available for your role.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="first-time-step">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <div class="step-content">
+
+                            <h3>Manage Your Academics</h3>
+
+                            <p>
+                                Examination, attendance and submissions
+                                can be managed through the portal.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="first-time-actions">
+
+                    <a th:href="@{/register}" class="auth-button primary-action">
+
+                        Create Account
+
+                    </a>
+
+
+                    <a th:href="@{/login}" class="secondary-button">
+
+                        Already Registered? Login
+
+                    </a>
+
+                </div>
+
+
+                <div class="auth-footer">
+
+                    <p>
+                        Need more information?
+                        <a th:href="@{/contact}">
+                            Contact the college
+                        </a>
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="site-footer">
+
+        <div class="footer-container">
+
+            <p>
+
+                © <span id="currentYear"></span>
+                Saraswati College of Engineering.
+                All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

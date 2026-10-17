@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Students | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+
+<body class="admin-page">
+
+    <!-- ================================
+         ADMIN SIDEBAR
+         ================================ -->
+
+    <aside class="admin-sidebar">
+
+        <div class="admin-brand">
+
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="admin-logo">
+
+            <div class="admin-brand-text">
+                <h2>Saraswati College</h2>
+                <span>Administration</span>
+            </div>
+
+        </div>
+
+
+        <nav class="admin-navigation">
+
+            <a th:href="@{/admin/dashboard}"
+               class="admin-nav-link">
+                <span class="nav-icon">▣</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a th:href="@{/admin/students}"
+               class="admin-nav-link active">
+                <span class="nav-icon">♙</span>
+                <span>Students</span>
+            </a>
+
+            <a th:href="@{/admin/educators}"
+               class="admin-nav-link">
+                <span class="nav-icon">♟</span>
+                <span>Educators</span>
+            </a>
+
+            <a th:href="@{/admin/reports}"
+               class="admin-nav-link">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a th:href="@{/admin/tickets}"
+               class="admin-nav-link">
+                <span class="nav-icon">◇</span>
+                <span>Support Tickets</span>
+            </a>
+
+        </nav>
+
+
+        <div class="admin-sidebar-bottom">
+
+            <a th:href="@{/}"
+               class="admin-home-link">
+                <span>←</span>
+                <span>Back to Home</span>
+            </a>
+
+            <form th:action="@{/logout}" method="post">
+
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit" class="admin-logout-button">
+                    <span>↪</span>
+                    <span>Logout</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================================
+         MAIN CONTENT
+         ================================ -->
+
+    <main class="admin-main">
+
+        <!-- Top Header -->
+
+        <header class="admin-topbar">
+
+            <div>
+                <span class="admin-page-label">
+                    ADMINISTRATION
+                </span>
+
+                <h1>Manage Students</h1>
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="admin-profile-icon">
+                    A
+                </div>
+
+                <div class="admin-profile-info">
+                    <strong>Administrator</strong>
+                    <span>System Admin</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================
+             PAGE INTRODUCTION
+             ================================ -->
+
+        <section class="admin-welcome">
+
+            <div>
+
+                <span class="section-label">
+                    STUDENT MANAGEMENT
+                </span>
+
+                <h2>Student Records</h2>
+
+                <p>
+                    View and manage student information, academic details
+                    and account status.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             STUDENT STATISTICS
+             ================================ -->
+
+        <section class="admin-statistics">
+
+            <div class="admin-stat-card">
+
+                <div class="stat-icon student-icon">
+                    ♙
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Total Students</span>
+
+                    <h3>1,248</h3>
+
+                    <p>Registered students</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="stat-icon educator-icon">
+                    ✓
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Active Students</span>
+
+                    <h3>1,186</h3>
+
+                    <p>Currently active</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="stat-icon course-icon">
+                    ▤
+                </div>
+
+                <div class="stat-content">
+
+                    <span>Courses</span>
+
+                    <h3>12</h3>
+
+                    <p>Available programs</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-stat-card">
+
+                <div class="stat-icon ticket-icon">
+                    +
+                </div>
+
+                <div class="stat-content">
+
+                    <span>New Students</span>
+
+                    <h3>24</h3>
+
+                    <p>Registered this month</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================
+             STUDENT MANAGEMENT PANEL
+             ================================ -->
+
+        <section class="admin-section">
+
+            <div class="admin-panel student-management-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            STUDENT DIRECTORY
+                        </span>
+
+                        <h2>All Students</h2>
+
+                    </div>
+
+                    <button type="button"
+                            class="admin-primary-button">
+                        + Add Student
+                    </button>
+
+                </div>
+
+
+                <!-- Search and Filter -->
+
+                <div class="student-controls">
+
+                    <div class="student-search">
+
+                        <input type="search"
+                               placeholder="Search students by name or email">
+
+                    </div>
+
+
+                    <div class="student-filter">
+
+                        <select>
+                            <option value="">All Courses</option>
+                            <option>Information Technology</option>
+                            <option>Computer Science & Engineering</option>
+                            <option>Electronics & Telecommunication</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="student-filter">
+
+                        <select>
+                            <option value="">All Years</option>
+                            <option>First Year</option>
+                            <option>Second Year</option>
+                            <option>Third Year</option>
+                            <option>Final Year</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================
+                     STUDENT TABLE
+                     ================================ -->
+
+                <div class="admin-table-wrapper">
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Student ID</th>
+
+                                <th>Student Name</th>
+
+                                <th>Email</th>
+
+                                <th>Course</th>
+
+                                <th>Year</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>STU001</td>
+
+                                <td>
+                                    <strong>Rahul Sharma</strong>
+                                </td>
+
+                                <td>
+                                    rahul@example.com
+                                </td>
+
+                                <td>
+                                    Information Technology
+                                </td>
+
+                                <td>
+                                    Third Year
+                                </td>
+
+                                <td>
+                                    <span class="table-status active">
+                                        Active
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="table-action-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>STU002</td>
+
+                                <td>
+                                    <strong>Priya Patel</strong>
+                                </td>
+
+                                <td>
+                                    priya@example.com
+                                </td>
+
+                                <td>
+                                    Computer Science & Engineering
+                                </td>
+
+                                <td>
+                                    Second Year
+                                </td>
+
+                                <td>
+                                    <span class="table-status active">
+                                        Active
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="table-action-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>STU003</td>
+
+                                <td>
+                                    <strong>Aditya Mehta</strong>
+                                </td>
+
+                                <td>
+                                    aditya@example.com
+                                </td>
+
+                                <td>
+                                    Electronics & Telecommunication
+                                </td>
+
+                                <td>
+                                    Final Year
+                                </td>
+
+                                <td>
+                                    <span class="table-status active">
+                                        Active
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="table-action-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>STU004</td>
+
+                                <td>
+                                    <strong>Ananya Shah</strong>
+                                </td>
+
+                                <td>
+                                    ananya@example.com
+                                </td>
+
+                                <td>
+                                    Information Technology
+                                </td>
+
+                                <td>
+                                    First Year
+                                </td>
+
+                                <td>
+                                    <span class="table-status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="table-action-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>STU005</td>
+
+                                <td>
+                                    <strong>Arjun Desai</strong>
+                                </td>
+
+                                <td>
+                                    arjun@example.com
+                                </td>
+
+                                <td>
+                                    Computer Science & Engineering
+                                </td>
+
+                                <td>
+                                    Third Year
+                                </td>
+
+                                <td>
+                                    <span class="table-status active">
+                                        Active
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button type="button"
+                                            class="table-action-button">
+                                        View
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- ================================
+                     PAGINATION
+                     ================================ -->
+
+                <div class="admin-pagination">
+
+                    <span>
+                        Showing 1–5 of 1,248 students
+                    </span>
+
+                    <div class="pagination-buttons">
+
+                        <button type="button"
+                                class="pagination-button">
+                            Previous
+                        </button>
+
+                        <button type="button"
+                                class="pagination-button active">
+                            1
+                        </button>
+
+                        <button type="button"
+                                class="pagination-button">
+                            2
+                        </button>
+
+                        <button type="button"
+                                class="pagination-button">
+                            3
+                        </button>
+
+                        <button type="button"
+                                class="pagination-button">
+                            Next
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+
+        <footer class="admin-footer">
+
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Academic Management System.
+            </p>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

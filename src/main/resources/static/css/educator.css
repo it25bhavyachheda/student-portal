@@ -1,0 +1,804 @@
+/* =========================================================
+   EDUCATOR CSS
+   Saraswati College of Engineering
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #07152d;
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================================================
+   EDUCATOR PAGE
+   ========================================================= */
+
+.educator-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(212, 168, 74, 0.08),
+            transparent 30%
+        ),
+        #07152d;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.educator-sidebar {
+    width: 260px;
+    min-height: 100vh;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background: #0a1d39;
+
+    border-right: 1px solid rgba(212, 168, 74, 0.25);
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+}
+
+.educator-brand {
+    padding: 25px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    border-bottom: 1px solid rgba(212, 168, 74, 0.18);
+}
+
+.educator-logo {
+    width: 55px;
+    height: 55px;
+
+    object-fit: contain;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    padding: 3px;
+}
+
+.educator-brand-text h2 {
+    color: #ffffff;
+
+    font-family: Georgia, serif;
+
+    font-size: 17px;
+
+    line-height: 1.2;
+}
+
+.educator-brand-text p {
+    color: #d4a84a;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+
+    letter-spacing: 0.5px;
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.educator-navigation {
+    padding: 22px 15px;
+
+    flex: 1;
+
+    overflow-y: auto;
+}
+
+.educator-nav-link {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 15px;
+
+    margin-bottom: 7px;
+
+    border-radius: 8px;
+
+    color: #b9c1d0;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.educator-nav-link:hover {
+    background: rgba(212, 168, 74, 0.10);
+
+    color: #ffffff;
+}
+
+.educator-nav-link.active {
+    background: #d4a84a;
+
+    color: #07152d;
+
+    font-weight: 700;
+}
+
+.educator-nav-icon {
+    width: 22px;
+
+    text-align: center;
+
+    font-size: 17px;
+}
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.educator-sidebar-bottom {
+    padding: 15px;
+
+    border-top: 1px solid rgba(212, 168, 74, 0.18);
+}
+
+.educator-home-link,
+.educator-logout-button {
+    width: 100%;
+
+    display: block;
+
+    padding: 12px 15px;
+
+    margin-bottom: 7px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #b9c1d0;
+
+    text-align: left;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.educator-home-link:hover,
+.educator-logout-button:hover {
+    background: rgba(212, 168, 74, 0.10);
+
+    color: #ffffff;
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.educator-main {
+    width: calc(100% - 260px);
+
+    margin-left: 260px;
+
+    padding: 30px 40px;
+
+    min-height: 100vh;
+}
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.educator-topbar {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid rgba(212, 168, 74, 0.15);
+}
+
+.educator-page-label {
+    color: #d4a84a;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.educator-topbar h1 {
+    margin-top: 6px;
+
+    font-family: Georgia, serif;
+
+    font-size: 30px;
+
+    color: #ffffff;
+}
+
+.educator-profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.educator-profile-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #d4a84a;
+
+    color: #07152d;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+.educator-profile-info strong {
+    display: block;
+
+    font-size: 14px;
+
+    color: #ffffff;
+}
+
+.educator-profile-info span {
+    display: block;
+
+    color: #8f9aae;
+
+    font-size: 12px;
+
+    margin-top: 3px;
+}
+
+/* =========================================================
+   WELCOME SECTION
+   ========================================================= */
+
+.educator-welcome {
+    margin: 30px 0;
+
+    padding: 28px;
+
+    background: #0f2343;
+
+    border: 1px solid rgba(212, 168, 74, 0.25);
+
+    border-radius: 14px;
+}
+
+.educator-section-label {
+    color: #d4a84a;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.educator-welcome h2 {
+    margin-top: 8px;
+
+    font-family: Georgia, serif;
+
+    font-size: 25px;
+
+    color: #ffffff;
+}
+
+.educator-welcome p {
+    margin-top: 8px;
+
+    color: #b9c1d0;
+
+    line-height: 1.6;
+}
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+.educator-statistics {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 35px;
+}
+
+.educator-stat-card {
+    padding: 22px;
+
+    background: #0f2343;
+
+    border: 1px solid rgba(212, 168, 74, 0.18);
+
+    border-radius: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    transition: 0.25s ease;
+}
+
+.educator-stat-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #d4a84a;
+}
+
+.educator-stat-icon {
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: rgba(212, 168, 74, 0.12);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+
+    color: #d4a84a;
+}
+
+.educator-stat-content h3 {
+    font-size: 24px;
+
+    color: #ffffff;
+}
+
+.educator-stat-content p {
+    color: #8f9aae;
+
+    font-size: 12px;
+
+    margin-top: 3px;
+}
+
+/* =========================================================
+   QUICK ACCESS
+   ========================================================= */
+
+.educator-section {
+    margin-bottom: 35px;
+}
+
+.educator-section-heading {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.educator-section-heading h2 {
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    color: #ffffff;
+}
+
+.educator-card-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.educator-action-card {
+    padding: 23px;
+
+    background: #0f2343;
+
+    border: 1px solid rgba(212, 168, 74, 0.18);
+
+    border-radius: 13px;
+
+    transition: 0.25s ease;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.educator-action-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #d4a84a;
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: 0.25s ease;
+}
+
+.educator-action-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #d4a84a;
+}
+
+.educator-action-card:hover::before {
+    transform: scaleX(1);
+}
+
+.educator-action-icon {
+    font-size: 28px;
+
+    margin-bottom: 13px;
+
+    color: #d4a84a;
+}
+
+.educator-action-card h3 {
+    font-size: 16px;
+
+    margin-bottom: 7px;
+
+    color: #ffffff;
+}
+
+.educator-action-card p {
+    color: #ffffff;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    min-height: 40px;
+}
+
+.educator-action-arrow {
+    display: block;
+
+    margin-top: 15px;
+
+    color: #d4a84a;
+
+    font-size: 18px;
+}
+
+/* =========================================================
+   DASHBOARD PANELS
+   ========================================================= */
+
+.educator-dashboard-grid {
+    display: grid;
+
+    grid-template-columns: 1.2fr 1fr;
+
+    gap: 22px;
+}
+
+.educator-panel {
+    background: #0f2343;
+
+    border: 1px solid rgba(212, 168, 74, 0.18);
+
+    border-radius: 13px;
+
+    overflow: hidden;
+}
+
+.educator-panel-header {
+    padding: 19px 22px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid rgba(212, 168, 74, 0.13);
+}
+
+.educator-panel-header h3 {
+    color: #ffffff;
+
+    font-size: 16px;
+}
+
+.educator-panel-link {
+    color: #d4a84a;
+
+    font-size: 12px;
+}
+
+.educator-panel-link:hover {
+    color: #ffffff;
+}
+
+/* =========================================================
+   ACTIVITY LIST
+   ========================================================= */
+
+.educator-list {
+    padding: 8px 20px;
+}
+
+.educator-list-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.educator-list-item:last-child {
+    border-bottom: none;
+}
+
+.educator-list-icon {
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background: rgba(212, 168, 74, 0.12);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #d4a84a;
+}
+
+.educator-list-details {
+    flex: 1;
+}
+
+.educator-list-details strong {
+    display: block;
+
+    font-size: 13px;
+
+    color: #ffffff;
+}
+
+.educator-list-details span {
+    display: block;
+
+    color: #8f9aae;
+
+    font-size: 11px;
+
+    margin-top: 4px;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.educator-status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.educator-status.pending {
+    color: #f0b238;
+
+    background: rgba(230, 160, 60, 0.12);
+}
+
+.educator-status.completed {
+    color: #80d9a5;
+
+    background: rgba(80, 190, 130, 0.12);
+}
+
+.educator-status.progress {
+    color: #7db2ff;
+
+    background: rgba(80, 140, 220, 0.12);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.educator-footer {
+    margin-top: 40px;
+
+    padding: 20px 0;
+
+    border-top: 1px solid rgba(212, 168, 74, 0.15);
+
+    color: #6f7d91;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+/* =========================================================
+   RESPONSIVE - 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .educator-statistics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .educator-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .educator-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - 850px
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .educator-sidebar {
+        width: 220px;
+    }
+
+    .educator-main {
+        width: calc(100% - 220px);
+
+        margin-left: 220px;
+
+        padding: 25px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - 700px
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .educator-sidebar {
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+    }
+
+    .educator-main {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 20px;
+    }
+
+    .educator-statistics,
+    .educator-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .educator-topbar {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE - 450px
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+    .educator-main {
+        padding: 15px;
+    }
+
+    .educator-topbar h1 {
+        font-size: 25px;
+    }
+
+    .educator-welcome {
+        padding: 20px;
+    }
+
+    .educator-stat-card {
+        padding: 17px;
+    }
+
+    .educator-action-card {
+        padding: 19px;
+    }
+}

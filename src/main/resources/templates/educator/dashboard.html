@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Educator Dashboard | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/educator.css}">
+
+</head>
+
+<body class="educator-page">
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="educator-sidebar">
+
+    <!-- BRAND -->
+
+    <div class="educator-brand">
+
+        <img th:src="@{/images/logo.jpg}"
+             alt="Saraswati College of Engineering Logo"
+             class="educator-logo">
+
+        <div class="educator-brand-text">
+
+            <h2>Saraswati College</h2>
+
+            <p>EDUCATOR PORTAL</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="educator-navigation">
+
+        <a th:href="@{/educator/dashboard}"
+           class="educator-nav-link active">
+
+            <span class="educator-nav-icon">📊</span>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a th:href="@{/educator/examination}"
+           class="educator-nav-link">
+
+            <span class="educator-nav-icon">📝</span>
+
+            <span>Examination</span>
+
+        </a>
+
+
+        <a th:href="@{/educator/attendance}"
+           class="educator-nav-link">
+
+            <span class="educator-nav-icon">📅</span>
+
+            <span>Attendance</span>
+
+        </a>
+
+
+        <a th:href="@{/educator/submissions}"
+           class="educator-nav-link">
+
+            <span class="educator-nav-icon">📤</span>
+
+            <span>Submissions</span>
+
+        </a>
+
+
+        <a th:href="@{/educator/revaluation-requests}"
+           class="educator-nav-link">
+
+            <span class="educator-nav-icon">🔄</span>
+
+            <span>Revaluation Requests</span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="educator-sidebar-bottom">
+
+        <a th:href="@{/}"
+           class="educator-home-link">
+
+            🏠 &nbsp; Back to Home
+
+        </a>
+
+
+        <form th:action="@{/logout}"
+              method="post">
+
+            <input type="hidden"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}">
+
+            <button type="submit"
+                    class="educator-logout-button">
+
+                🚪 &nbsp; Logout
+
+            </button>
+
+        </form>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN CONTENT
+     ===================================================== -->
+
+<main class="educator-main">
+
+
+    <!-- TOP BAR -->
+
+    <header class="educator-topbar">
+
+        <div>
+
+            <div class="educator-page-label">
+                EDUCATOR PORTAL
+            </div>
+
+            <h1>Educator Dashboard</h1>
+
+        </div>
+
+
+        <div class="educator-profile">
+
+            <div class="educator-profile-icon">
+                👨‍🏫
+            </div>
+
+            <div class="educator-profile-info">
+
+                <strong>Educator</strong>
+
+                <span>Academic Faculty</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         WELCOME
+         ================================================= -->
+
+    <section class="educator-welcome">
+
+        <div class="educator-section-label">
+            WELCOME BACK
+        </div>
+
+        <h2>Manage Academic Activities</h2>
+
+        <p>
+            Monitor examinations, attendance, student submissions
+            and revaluation requests from one central dashboard.
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         STATISTICS
+         ================================================= -->
+
+    <section class="educator-statistics">
+
+
+        <!-- STUDENTS -->
+
+        <div class="educator-stat-card">
+
+            <div class="educator-stat-icon">
+                👨‍🎓
+            </div>
+
+            <div class="educator-stat-content">
+
+                <h3>120</h3>
+
+                <p>Assigned Students</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXAMINATIONS -->
+
+        <div class="educator-stat-card">
+
+            <div class="educator-stat-icon">
+                📝
+            </div>
+
+            <div class="educator-stat-content">
+
+                <h3>8</h3>
+
+                <p>Active Examinations</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBMISSIONS -->
+
+        <div class="educator-stat-card">
+
+            <div class="educator-stat-icon">
+                📤
+            </div>
+
+            <div class="educator-stat-content">
+
+                <h3>24</h3>
+
+                <p>Pending Submissions</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- REVALUATION -->
+
+        <div class="educator-stat-card">
+
+            <div class="educator-stat-icon">
+                🔄
+            </div>
+
+            <div class="educator-stat-content">
+
+                <h3>5</h3>
+
+                <p>Revaluation Requests</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         QUICK ACCESS
+         ================================================= -->
+
+    <section class="educator-section">
+
+        <div class="educator-section-heading">
+
+            <h2>Quick Access</h2>
+
+        </div>
+
+
+        <div class="educator-card-grid">
+
+
+            <!-- EXAMINATION -->
+
+            <a th:href="@{/educator/examination}"
+               class="educator-action-card">
+
+                <div class="educator-action-icon">
+                    📝
+                </div>
+
+                <h3>Examination</h3>
+
+                <p>
+                    Manage examinations, enter marks and review
+                    student examination results.
+                </p>
+
+                <span class="educator-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- ATTENDANCE -->
+
+            <a th:href="@{/educator/attendance}"
+               class="educator-action-card">
+
+                <div class="educator-action-icon">
+                    📅
+                </div>
+
+                <h3>Attendance</h3>
+
+                <p>
+                    Record student attendance and monitor
+                    attendance performance.
+                </p>
+
+                <span class="educator-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- SUBMISSIONS -->
+
+            <a th:href="@{/educator/submissions}"
+               class="educator-action-card">
+
+                <div class="educator-action-icon">
+                    📤
+                </div>
+
+                <h3>Submissions</h3>
+
+                <p>
+                    Assign academic work and track pending
+                    and submitted assignments.
+                </p>
+
+                <span class="educator-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- REVALUATION -->
+
+            <a th:href="@{/educator/revaluation-requests}"
+               class="educator-action-card">
+
+                <div class="educator-action-icon">
+                    🔄
+                </div>
+
+                <h3>Revaluation Requests</h3>
+
+                <p>
+                    Review and manage student requests for
+                    examination revaluation.
+                </p>
+
+                <span class="educator-action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         RECENT ACTIVITIES + PENDING REQUESTS
+         ================================================= -->
+
+    <section class="educator-dashboard-grid">
+
+
+        <!-- RECENT ACTIVITIES -->
+
+        <div class="educator-panel">
+
+            <div class="educator-panel-header">
+
+                <h3>Recent Activities</h3>
+
+                <a href="#"
+                   class="educator-panel-link">
+
+                    View All
+
+                </a>
+
+            </div>
+
+
+            <div class="educator-list">
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        📝
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Mid-Term Examination marks updated
+                        </strong>
+
+                        <span>
+                            Computer Engineering • 2 hours ago
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status completed">
+                        Completed
+                    </span>
+
+                </div>
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        📅
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Attendance records updated
+                        </strong>
+
+                        <span>
+                            Information Technology • Today
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status completed">
+                        Completed
+                    </span>
+
+                </div>
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        📤
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            New assignment submission received
+                        </strong>
+
+                        <span>
+                            Student STU024 • 3 hours ago
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status progress">
+                        New
+                    </span>
+
+                </div>
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        🔄
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Revaluation request submitted
+                        </strong>
+
+                        <span>
+                            Student STU018 • 5 hours ago
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status pending">
+                        Pending
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING WORK -->
+
+        <div class="educator-panel">
+
+            <div class="educator-panel-header">
+
+                <h3>Pending Work</h3>
+
+                <a th:href="@{/educator/revaluation-requests}"
+                   class="educator-panel-link">
+
+                    View All
+
+                </a>
+
+            </div>
+
+
+            <div class="educator-list">
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        🔄
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Revaluation Requests
+                        </strong>
+
+                        <span>
+                            5 requests awaiting review
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status pending">
+                        5
+                    </span>
+
+                </div>
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        📤
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Pending Submissions
+                        </strong>
+
+                        <span>
+                            24 submissions to review
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status pending">
+                        24
+                    </span>
+
+                </div>
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        📝
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Upcoming Examination
+                        </strong>
+
+                        <span>
+                            Database Management System
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status progress">
+                        Soon
+                    </span>
+
+                </div>
+
+
+                <div class="educator-list-item">
+
+                    <div class="educator-list-icon">
+                        📅
+                    </div>
+
+                    <div class="educator-list-details">
+
+                        <strong>
+                            Attendance Review
+                        </strong>
+
+                        <span>
+                            Students below attendance threshold
+                        </span>
+
+                    </div>
+
+                    <span class="educator-status pending">
+                        Review
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FOOTER
+         ================================================= -->
+
+    <footer class="educator-footer">
+
+        <p>
+            © 2026 Saraswati College of Engineering.
+            Educator Portal. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</main>
+
+</body>
+</html>

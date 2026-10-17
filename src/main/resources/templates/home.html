@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="navbar-container">
+
+            <a th:href="@{/}" class="college-brand">
+
+                <img th:src="@{/images/logo.jpg}" alt="Saraswati College of Engineering Logo" class="college-logo">
+
+                <div class="college-name">
+                    <h1>Saraswati College of Engineering</h1>
+
+                    <p>
+                        LEARN <span>•</span>
+                        INNOVATE <span>•</span>
+                        BUILD TOMORROW
+                    </p>
+                </div>
+
+            </a>
+
+            <nav class="navigation">
+
+                <a th:href="@{/home}" class="nav-link active">Home</a>
+                <a th:href="@{/about}" class="nav-link">About</a>
+                <a th:href="@{/courses}" class="nav-link">Courses</a>
+                <a th:href="@{/contact}" class="nav-link">Contact</a>
+
+            </nav>
+
+            <div class="auth-buttons">
+
+                <a th:href="@{/login}" class="login-btn">Login</a>
+                <a th:href="@{/register}" class="register-btn">Register</a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="welcome-badge">
+                    A PLACE TO LEARN, GROW AND ACHIEVE
+                </div>
+
+                <h2>
+                    Welcome to
+                    <span>Saraswati College of Engineering</span>
+                </h2>
+
+                <p class="hero-description">
+                    Explore an academic environment focused on knowledge,
+                    innovation, collaboration and the overall growth of students.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a th:href="@{/courses}" class="primary-btn">
+                        Explore Courses <span>→</span>
+                    </a>
+
+                    <a th:href="@{/about}" class="secondary-btn">
+                        Learn About Us <span>→</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="highlights-section">
+
+            <div class="highlight-card">
+
+                <div class="highlight-icon">🎓</div>
+
+                <h3>Academic Excellence</h3>
+
+                <p>
+                    Encouraging students to develop strong academic foundations.
+                </p>
+
+            </div>
+
+
+            <div class="highlight-card">
+
+                <div class="highlight-icon">💡</div>
+
+                <h3>Innovation</h3>
+
+                <p>
+                    Creating an environment where ideas and creativity can grow.
+                </p>
+
+            </div>
+
+
+            <div class="highlight-card">
+
+                <div class="highlight-icon">🤝</div>
+
+                <h3>Collaboration</h3>
+
+                <p>
+                    Promoting teamwork between students, educators and the community.
+                </p>
+
+            </div>
+
+
+            <div class="highlight-card">
+
+                <div class="highlight-icon">🚀</div>
+
+                <h3>Future Ready</h3>
+
+                <p>
+                    Helping students prepare for opportunities and challenges ahead.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="why-section">
+
+            <div class="why-content">
+
+                <span class="section-label">
+                    OUR APPROACH
+                </span>
+
+                <h2>
+                    Learning Beyond the Classroom
+                </h2>
+
+                <p>
+                    Education is not limited to textbooks. We encourage curiosity,
+                    practical learning, teamwork and continuous development so that
+                    students can confidently move towards their goals.
+                </p>
+
+                <a th:href="@{/about}" class="outline-btn">
+                    Know More About Us <span>→</span>
+                </a>
+
+            </div>
+
+            <div class="why-decoration">
+
+                <div class="learn-text">
+                    Learn<br>
+                    Grow<br>
+                    Achieve
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <p>
+            © <span id="currentYear">2026</span>
+            Saraswati College of Engineering.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script th:src="@{/js/script.js}"></script>
+
+</body>
+
+</html>

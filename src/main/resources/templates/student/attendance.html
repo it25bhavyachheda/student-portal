@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/student.css}">
+</head>
+
+<body class="student-page">
+
+    <aside class="student-sidebar">
+
+        <div class="student-brand">
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="student-logo">
+
+            <div class="student-brand-text">
+                <h2>Student Portal</h2>
+                <span>Saraswati College</span>
+            </div>
+        </div>
+
+        <nav class="student-navigation">
+            <a th:href="@{/student/dashboard}" class="student-nav-link">
+                <span>📊</span><span>Dashboard</span>
+            </a>
+
+            <a th:href="@{/student/examination}" class="student-nav-link">
+                <span>📝</span><span>Examination</span>
+            </a>
+
+            <a th:href="@{/student/attendance}"
+               class="student-nav-link active">
+                <span>📅</span><span>Attendance</span>
+            </a>
+
+            <a th:href="@{/student/submissions}" class="student-nav-link">
+                <span>📤</span><span>Submissions</span>
+            </a>
+
+            <a th:href="@{/student/raise-ticket}" class="student-nav-link">
+                <span>🎫</span><span>Raise Ticket</span>
+            </a>
+
+            <a th:href="@{/student/my-tickets}" class="student-nav-link">
+                <span>📋</span><span>My Tickets</span>
+            </a>
+        </nav>
+
+        <div class="student-sidebar-bottom">
+            <a th:href="@{/}" class="student-nav-link">
+                <span>⌂</span><span>Home</span>
+            </a>
+
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="student-nav-link logout-button">
+                    <span>↪</span><span>Logout</span>
+                </button>
+            </form>
+        </div>
+
+    </aside>
+
+    <main class="student-main">
+
+        <header class="student-topbar">
+            <div>
+                <span class="student-page-label">STUDENT PORTAL</span>
+                <h1>My Attendance</h1>
+            </div>
+
+            <div class="student-profile">
+                <div class="profile-icon">🎓</div>
+                <div>
+                    <strong>Student</strong>
+                    <span>Academic Student</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="student-welcome">
+            <span class="section-label">ATTENDANCE OVERVIEW</span>
+            <h2>Track Your Attendance</h2>
+            <p>
+                View your recorded attendance by subject and monitor
+                your attendance percentage throughout the academic year.
+            </p>
+        </section>
+
+        <!-- ATTENDANCE SUMMARY -->
+        <section class="student-section">
+
+            <div class="student-card-grid">
+
+                <div class="student-stat-card">
+                    <div class="stat-card-icon">📚</div>
+                    <div>
+                        <span>Total Classes</span>
+                        <h3 th:text="${attendanceSummary != null
+                            ? attendanceSummary['totalClasses'] : 0}">0</h3>
+                    </div>
+                </div>
+
+                <div class="student-stat-card">
+                    <div class="stat-card-icon">✅</div>
+                    <div>
+                        <span>Classes Attended</span>
+                        <h3 th:text="${attendanceSummary != null
+                            ? attendanceSummary['classesAttended'] : 0}">0</h3>
+                    </div>
+                </div>
+
+                <div class="student-stat-card">
+                    <div class="stat-card-icon">📊</div>
+                    <div>
+                        <span>Attendance Percentage</span>
+                        <h3>
+                            <span th:text="${attendanceSummary != null
+                                ? attendanceSummary['percentage'] : 0}">0</span>%
+                        </h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ATTENDANCE NOTICE -->
+        <section class="student-section">
+
+            <div class="student-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <span class="section-label">ATTENDANCE STATUS</span>
+                        <h3>Your Attendance Progress</h3>
+                    </div>
+                </div>
+
+                <div th:if="${attendanceSummary != null
+                    and attendanceSummary['percentage'] != null
+                    and attendanceSummary['totalClasses'] > 0
+                    and attendanceSummary['percentage'] < 75}"
+                     class="attendance-notice attendance-warning">
+
+                    <strong>Attendance Below 75%</strong>
+                    <p>
+                        Your recorded attendance is below 75%.
+                        Please review your attendance records and contact
+                        your educator if you believe a record is incorrect.
+                    </p>
+                </div>
+
+                <div th:if="${attendanceSummary != null
+                    and attendanceSummary['percentage'] != null
+                    and attendanceSummary['totalClasses'] > 0
+                    and attendanceSummary['percentage'] >= 75}"
+                     class="attendance-notice attendance-good">
+
+                    <strong>Attendance Requirement Met</strong>
+                    <p>
+                        Your recorded attendance is currently at least 75%.
+                        Continue attending your scheduled classes regularly.
+                    </p>
+                </div>
+
+                <div th:if="${attendanceSummary == null
+                    or attendanceSummary['totalClasses'] == 0}"
+                     class="attendance-notice">
+
+                    <strong>No Attendance Records Yet</strong>
+                    <p>
+                        Attendance information will appear here once your
+                        educator records your class attendance.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ATTENDANCE RECORDS -->
+        <section class="student-section">
+
+            <div class="student-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <span class="section-label">ATTENDANCE HISTORY</span>
+                        <h3>Subject-wise Attendance Records</h3>
+                        <p>
+                            These records are retrieved for your logged-in
+                            student account.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="student-table-container">
+                    <table class="student-table">
+
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="record : ${attendanceRecords}">
+                                <td th:text="${record['SUBJECT']}">
+                                    Subject
+                                </td>
+
+                                <td th:text="${record['ATTENDANCE_DATE']}">
+                                    Date
+                                </td>
+
+                                <td>
+                                    <span th:if="${record['PRESENT'] == true
+                                        or record['PRESENT'] == 'TRUE'}"
+                                          class="attendance-status status-present">
+                                        Present
+                                    </span>
+
+                                    <span th:unless="${record['PRESENT'] == true
+                                        or record['PRESENT'] == 'TRUE'}"
+                                          class="attendance-status status-absent">
+                                        Absent
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr th:if="${attendanceRecords == null
+                                or #lists.isEmpty(attendanceRecords)}">
+                                <td colspan="3" class="empty-table-message">
+                                    No attendance records are available yet.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="student-footer">
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Student Portal.
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

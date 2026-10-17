@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Select Role | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+
+<body>
+
+    <!-- =========================
+         ROLE SELECTION PAGE
+         ========================= -->
+
+    <div class="role-page">
+
+        <!-- College Branding -->
+        <div class="role-header">
+
+            <img th:src="@{/images/logo.jpg}" alt="Saraswati College of Engineering Logo" class="college-logo">
+
+            <h1>Saraswati College of Engineering</h1>
+
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="role-content">
+
+            <h2>Select Your Role</h2>
+
+            <p>
+                Choose your role to continue to the appropriate account page.
+            </p>
+
+
+            <!-- Role Cards -->
+            <div class="role-container">
+
+
+                <!-- =========================
+                     ADMIN
+                     ========================= -->
+
+                <div class="role-card">
+
+                    <div class="role-icon">
+                        👨‍💼
+                    </div>
+
+                    <h3>Admin</h3>
+
+                    <p>
+                        Manage students, educators,
+                        academic records and system activities.
+                    </p>
+
+                    <div class="role-buttons">
+
+                        <a th:href="@{/select-login(role='ADMIN')}" class="role-button">
+                            Login
+                        </a>
+
+                        <a th:href="@{/select-register(role='ADMIN')}" class="role-button secondary">
+                            Register
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     EDUCATOR
+                     ========================= -->
+
+                <div class="role-card">
+
+                    <div class="role-icon">
+                        👩‍🏫
+                    </div>
+
+                    <h3>Educator</h3>
+
+                    <p>
+                        Manage examinations, attendance,
+                        submissions and student academic records.
+                    </p>
+
+                    <div class="role-buttons">
+
+                        <a th:href="@{/select-login(role='EDUCATOR')}" class="role-button">
+                            Login
+                        </a>
+
+                        <a th:href="@{/select-register(role='EDUCATOR')}" class="role-button secondary">
+                            Register
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     STUDENT
+                     ========================= -->
+
+                <div class="role-card">
+
+                    <div class="role-icon">
+                        🎓
+                    </div>
+
+                    <h3>Student</h3>
+
+                    <p>
+                        View examination results, attendance,
+                        submissions and support tickets.
+                    </p>
+
+                    <div class="role-buttons">
+
+                        <a th:href="@{/select-login(role='STUDENT')}" class="role-button">
+                            Login
+                        </a>
+
+                        <a th:href="@{/select-register(role='STUDENT')}" class="role-button secondary">
+                            Register
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Back to Home -->
+            <div class="back-link">
+
+                <a th:href="@{/}">
+                    ← Back to Home
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

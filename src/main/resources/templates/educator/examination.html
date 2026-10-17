@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination | Educator Portal</title>
+    <link rel="stylesheet" th:href="@{/css/educator.css}">
+</head>
+
+<body class="educator-page">
+
+    <!-- SIDEBAR -->
+    <aside class="educator-sidebar">
+
+        <div class="educator-brand">
+            <img th:src="@{/images/logo.jpg}"
+                 alt="Saraswati College of Engineering Logo"
+                 class="educator-logo">
+
+            <div class="educator-brand-text">
+                <h2>Educator Portal</h2>
+                <span>Saraswati College</span>
+            </div>
+        </div>
+
+        <nav class="educator-navigation">
+            <a th:href="@{/educator/dashboard}" class="educator-nav-link">
+                <span>📊</span><span>Dashboard</span>
+            </a>
+
+            <a th:href="@{/educator/examination}"
+               class="educator-nav-link active">
+                <span>📝</span><span>Examination</span>
+            </a>
+
+            <a th:href="@{/educator/attendance}" class="educator-nav-link">
+                <span>📅</span><span>Attendance</span>
+            </a>
+
+            <a th:href="@{/educator/submissions}" class="educator-nav-link">
+                <span>📤</span><span>Submissions</span>
+            </a>
+
+            <a th:href="@{/educator/revaluation-requests}"
+               class="educator-nav-link">
+                <span>🔄</span><span>Revaluation Requests</span>
+            </a>
+        </nav>
+
+        <div class="educator-sidebar-bottom">
+            <a th:href="@{/}" class="educator-nav-link">
+                <span>⌂</span><span>Home</span>
+            </a>
+
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}">
+
+                <button type="submit"
+                        class="educator-nav-link logout-button">
+                    <span>↪</span><span>Logout</span>
+                </button>
+            </form>
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="educator-main">
+
+        <header class="educator-topbar">
+            <div>
+                <span class="educator-page-label">EDUCATOR PORTAL</span>
+                <h1>Examination</h1>
+            </div>
+
+            <div class="educator-profile">
+                <div class="profile-icon">👩‍🏫</div>
+                <div>
+                    <strong>Educator</strong>
+                    <span>Academic Faculty</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- INTRODUCTION -->
+        <section class="educator-welcome">
+            <span class="section-label">EXAMINATION MANAGEMENT</span>
+            <h2>Manage Examinations &amp; Results</h2>
+            <p>
+                Enter student marks, maintain subject-wise results,
+                and monitor academic performance.
+            </p>
+        </section>
+
+        <!-- SUCCESS AND ERROR MESSAGES -->
+        <section class="educator-section">
+            <p th:if="${message}" th:text="${message}" role="status"></p>
+            <p th:if="${error}" th:text="${error}" role="alert"></p>
+        </section>
+
+        <!-- ACTION CARDS -->
+        <section class="educator-section">
+            <div class="educator-card-grid">
+
+                <div class="educator-action-card">
+                    <div class="action-card-icon">📝</div>
+                    <h3>Manage Examinations</h3>
+                    <p>
+                        Enter examination names, subjects, dates,
+                        and maximum marks.
+                    </p>
+                    <a href="#enter-marks" class="action-card-button">
+                        Enter Examination Details →
+                    </a>
+                </div>
+
+                <div class="educator-action-card">
+                    <div class="action-card-icon">📊</div>
+                    <h3>Enter Marks</h3>
+                    <p>
+                        Record marks obtained by students for
+                        completed examinations.
+                    </p>
+                    <a href="#enter-marks" class="action-card-button">
+                        Enter Marks →
+                    </a>
+                </div>
+
+                <div class="educator-action-card">
+                    <div class="action-card-icon">🎓</div>
+                    <h3>Student Results</h3>
+                    <p>
+                        Review the marks recorded in the system
+                        for each student.
+                    </p>
+                    <a href="#examination-records" class="action-card-button">
+                        View Results →
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MARKS ENTRY FORM -->
+        <section class="educator-section" id="enter-marks">
+            <div class="educator-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <span class="section-label">RESULT ENTRY</span>
+                        <h3>Enter Student Marks</h3>
+                    </div>
+                </div>
+
+                <form th:action="@{/educator/examination/save}"
+                      method="post">
+
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}">
+
+                    <div class="examination-form-grid">
+
+                        <div class="form-group">
+                            <label for="studentEmail">Student Email</label>
+                            <input type="email" id="studentEmail"
+                                   name="studentEmail"
+                                   placeholder="student@saraswati.edu.in"
+                                   maxlength="255" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject"
+                                   name="subject"
+                                   placeholder="e.g. Data Structures"
+                                   maxlength="150" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="examName">Examination Name</label>
+                            <input type="text" id="examName"
+                                   name="examName"
+                                   placeholder="e.g. Mid Semester Examination"
+                                   maxlength="150" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marksObtained">Marks Obtained</label>
+                            <input type="number" id="marksObtained"
+                                   name="marksObtained"
+                                   min="0" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="maximumMarks">Maximum Marks</label>
+                            <input type="number" id="maximumMarks"
+                                   name="maximumMarks"
+                                   min="0.01" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="examDate">Examination Date</label>
+                            <input type="date" id="examDate"
+                                   name="examDate">
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="educator-primary-button">
+                        Save Student Marks
+                    </button>
+                </form>
+
+            </div>
+        </section>
+
+        <!-- EXAMINATION RECORDS FROM DATABASE -->
+        <section class="educator-section" id="examination-records">
+            <div class="educator-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <span class="section-label">DATABASE RECORDS</span>
+                        <h3>Examination Records</h3>
+                    </div>
+                </div>
+
+                <div class="educator-table-container">
+                    <table class="educator-table">
+
+                        <thead>
+                            <tr>
+                                <th>Student Email</th>
+                                <th>Examination</th>
+                                <th>Subject</th>
+                                <th>Marks Obtained</th>
+                                <th>Maximum Marks</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="record : ${grades}">
+                                <td th:text="${record['STUDENT_EMAIL']}"></td>
+                                <td th:text="${record['EXAM_NAME']}"></td>
+                                <td th:text="${record['SUBJECT']}"></td>
+                                <td th:text="${record['MARKS_OBTAINED']}"></td>
+                                <td th:text="${record['MAXIMUM_MARKS']}"></td>
+                                <td th:text="${record['EXAM_DATE']}"></td>
+                            </tr>
+
+                            <tr th:if="${#lists.isEmpty(grades)}">
+                                <td colspan="6">
+                                    No examination records have been added yet.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="educator-footer">
+            <p>
+                © 2026 Saraswati College of Engineering.
+                Educator Portal.
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,1006 @@
+/* =========================================================
+   SARASWATI COLLEGE OF ENGINEERING
+   MAIN WEBSITE STYLESHEET
+   ========================================================= */
+
+
+/* =========================================================
+   GOOGLE FONTS
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap');
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    color: #ffffff;
+    background: #062b5b;
+    overflow-x: hidden;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+    width: 100%;
+    min-height: 88px;
+
+    background: #071b3a;
+
+    border-bottom: 1px solid rgba(245, 182, 45, 0.15);
+
+    position: relative;
+    z-index: 100;
+}
+
+
+.navbar-container {
+    max-width: 1250px;
+    min-height: 88px;
+
+    margin: 0 auto;
+    padding: 0 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+/* =========================================================
+   COLLEGE BRAND
+   ========================================================= */
+
+.college-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    flex-shrink: 0;
+}
+
+
+.college-logo {
+    width: 110px;
+    height: 75px;
+    object-fit: contain;
+    display: block;
+}
+
+
+.college-name h1 {
+    font-weight: 800;
+}
+
+
+.college-name h1 {
+    font-family: 'Playfair Display', serif;
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+.college-name p {
+    margin-top: 6px;
+
+    color: #f5b62d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.college-name p span {
+    margin: 0 7px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navigation {
+    display: flex;
+    align-items: center;
+
+    gap: 34px;
+
+    margin-left: auto;
+}
+
+
+.nav-link {
+    position: relative;
+
+    padding: 31px 0;
+
+    color: #e5ebf5;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    transition: color 0.3s ease;
+}
+
+
+.nav-link:hover,
+.nav-link.active {
+    color: #f5b62d;
+}
+
+
+.nav-link.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 20px;
+
+    height: 2px;
+
+    background: #f5b62d;
+}
+
+
+/* =========================================================
+   AUTHENTICATION BUTTONS
+   ========================================================= */
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.login-btn,
+.register-btn {
+    padding: 10px 21px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+
+.login-btn {
+    color: #ffffff;
+
+    background: transparent;
+
+    border: 1px solid #f5b62d;
+}
+
+
+.login-btn:hover {
+    background: #f5b62d;
+
+    color: #071b3a;
+}
+
+
+.register-btn {
+    color: #071b3a;
+
+    background: #f5b62d;
+
+    border: 1px solid #f5b62d;
+}
+
+
+.register-btn:hover {
+    background: #ffc94d;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   MAIN BACKGROUND
+   ========================================================= */
+
+main {
+
+    background-color: #062b5b;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px);
+
+    background-size: 38px 38px;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
+.hero-section {
+
+    min-height: 540px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 85px 25px 70px;
+}
+
+
+.hero-content {
+
+    width: 100%;
+
+    max-width: 950px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   WELCOME BADGE
+   ========================================================= */
+
+.welcome-badge {
+
+    display: inline-block;
+
+    padding: 9px 23px;
+
+    border: 1px solid #f5b62d;
+
+    border-radius: 25px;
+
+    color: #f5b62d;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.6px;
+
+    margin-bottom: 27px;
+}
+
+
+/* =========================================================
+   HERO HEADING
+   ========================================================= */
+
+.hero-content h2 {
+
+    font-family: 'Playfair Display', serif;
+
+    color: #ffffff;
+
+    font-size: clamp(48px, 6vw, 76px);
+
+    font-weight: 700;
+
+    line-height: 1.05;
+}
+
+
+.hero-content h2 span {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #f5b62d;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+   ========================================================= */
+
+.hero-description {
+
+    max-width: 670px;
+
+    margin: 30px auto 0;
+
+    color: #d7e2f2;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+   ========================================================= */
+
+.hero-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 17px;
+
+    margin-top: 30px;
+}
+
+
+.primary-btn,
+.secondary-btn,
+.outline-btn {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 13px 27px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+
+.primary-btn {
+
+    background: #f5b62d;
+
+    color: #071b3a;
+
+    border: 1px solid #f5b62d;
+}
+
+
+.primary-btn:hover {
+
+    background: #ffc94d;
+
+    transform: translateY(-2px);
+}
+
+
+.secondary-btn {
+
+    background: transparent;
+
+    color: #ffffff;
+
+    border: 1px solid #f5b62d;
+}
+
+
+.secondary-btn:hover {
+
+    background: rgba(245, 182, 45, 0.10);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HIGHLIGHTS
+   ========================================================= */
+
+.highlights-section {
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 30px 25px 70px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+.highlight-card {
+
+    text-align: center;
+
+    padding: 15px 30px;
+
+    border-right: 1px solid rgba(245, 182, 45, 0.30);
+}
+
+
+.highlight-card:last-child {
+
+    border-right: none;
+}
+
+
+.highlight-icon {
+
+    font-size: 30px;
+
+    margin-bottom: 13px;
+}
+
+
+.highlight-card h3 {
+
+    font-family: 'Playfair Display', serif;
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    margin-bottom: 9px;
+}
+
+
+.highlight-card p {
+
+    color: #cbd8e9;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   WHY SECTION
+   ========================================================= */
+
+.why-section {
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 35px 25px 75px;
+
+    display: grid;
+
+    grid-template-columns: 1.2fr 1fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+
+.why-content {
+
+    max-width: 600px;
+}
+
+
+.section-label {
+
+    color: #f5b62d;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+
+.why-content h2 {
+
+    font-family: 'Playfair Display', serif;
+
+    color: #ffffff;
+
+    font-size: 36px;
+
+    margin: 11px 0 20px;
+}
+
+
+.why-content p {
+
+    color: #d5e0ef;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   OUTLINE BUTTON
+   ========================================================= */
+
+.outline-btn {
+
+    color: #ffffff;
+
+    background: transparent;
+
+    border: 1px solid #f5b62d;
+}
+
+
+.outline-btn:hover {
+
+    background: #f5b62d;
+
+    color: #071b3a;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   DECORATIVE SECTION
+   ========================================================= */
+
+.why-decoration {
+
+    min-height: 220px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border: 1px solid rgba(245, 182, 45, 0.35);
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.025);
+}
+
+
+.learn-text {
+
+    font-family: 'Playfair Display', serif;
+
+    color: #f5b62d;
+
+    font-size: 35px;
+
+    font-style: italic;
+
+    line-height: 1.3;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT BAR
+   ========================================================= */
+
+.announcement-bar {
+
+    min-height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 0 30px;
+
+    background: rgba(4, 24, 53, 0.90);
+
+    border-top: 1px solid rgba(245, 182, 45, 0.30);
+
+    border-bottom: 1px solid rgba(245, 182, 45, 0.30);
+}
+
+
+.announcement-title {
+
+    color: #f5b62d;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.announcement-message {
+
+    flex: 1;
+
+    color: #e1e9f4;
+
+    font-size: 13px;
+}
+
+
+.announcement-message span {
+
+    color: #f5b62d;
+
+    margin-left: 5px;
+}
+
+
+.announcement-link {
+
+    color: #f5b62d;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.announcement-link span {
+
+    margin-left: 5px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+
+    background: #061a36;
+
+    text-align: center;
+
+    padding: 24px 20px;
+
+    color: #aebbd0;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .navbar-container {
+
+        flex-wrap: wrap;
+
+        padding: 14px 25px;
+    }
+
+
+    .navigation {
+
+        order: 3;
+
+        width: 100%;
+
+        justify-content: center;
+
+        margin-top: 8px;
+    }
+
+
+    .nav-link {
+
+        padding: 9px 0;
+    }
+
+
+    .nav-link.active::after {
+
+        bottom: 0;
+    }
+
+
+    .highlights-section {
+
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .highlight-card:nth-child(2) {
+
+        border-right: none;
+    }
+
+
+    .why-section {
+
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+    }
+
+
+    .why-content {
+
+        max-width: 750px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .navbar-container {
+
+        padding: 14px 18px;
+    }
+
+
+    .college-logo {
+
+        width: 58px;
+        height: 58px;
+    }
+
+
+    .college-name {
+
+        padding-left: 13px;
+    }
+
+
+    .college-name h1 {
+
+        font-size: 18px;
+    }
+
+
+    .college-name p {
+
+        font-size: 8px;
+
+        letter-spacing: 1px;
+    }
+
+
+    .navigation {
+
+        gap: 20px;
+
+        overflow-x: auto;
+
+        justify-content: flex-start;
+    }
+
+
+    .nav-link {
+
+        font-size: 13px;
+
+        white-space: nowrap;
+    }
+
+
+    .auth-buttons {
+
+        width: 100%;
+
+        justify-content: center;
+
+        margin-top: 7px;
+    }
+
+
+    .hero-section {
+
+        min-height: 500px;
+
+        padding: 65px 20px 55px;
+    }
+
+
+    .welcome-badge {
+
+        font-size: 9px;
+
+        padding: 8px 15px;
+    }
+
+
+    .hero-content h2 {
+
+        font-size: 43px;
+    }
+
+
+    .hero-description {
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+
+        width: 220px;
+    }
+
+
+    .highlights-section {
+
+        grid-template-columns: 1fr;
+
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .highlight-card {
+
+        padding: 25px;
+
+        border-right: none;
+
+        border-bottom: 1px solid rgba(245, 182, 45, 0.25);
+    }
+
+
+    .highlight-card:last-child {
+
+        border-bottom: none;
+    }
+
+
+    .why-section {
+
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .why-content h2 {
+
+        font-size: 30px;
+    }
+
+
+    .announcement-bar {
+
+        flex-wrap: wrap;
+
+        padding: 15px 20px;
+
+        gap: 9px;
+    }
+
+
+    .announcement-message {
+
+        flex: none;
+
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .college-brand {
+
+        width: 100%;
+    }
+
+
+    .college-name h1 {
+
+        font-size: 16px;
+    }
+
+
+    .college-name p {
+
+        font-size: 7px;
+    }
+
+
+    .auth-buttons {
+
+        gap: 8px;
+    }
+
+
+    .login-btn,
+    .register-btn {
+
+        padding: 9px 17px;
+
+        font-size: 13px;
+    }
+
+
+    .hero-content h2 {
+
+        font-size: 37px;
+    }
+
+
+    .welcome-badge {
+
+        letter-spacing: 1px;
+    }
+
+}

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | Saraswati College of Engineering</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        /* =========================================================
+           ABOUT PAGE - CENTERED DEVELOPMENT SECTION
+           ========================================================= */
+
+        .about-development-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 25px 80px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+
+            text-align: center;
+        }
+
+
+        .about-development-card {
+            padding: 35px 28px;
+
+            background: rgba(255, 255, 255, 0.035);
+
+            border: 1px solid rgba(245, 182, 45, 0.30);
+
+            border-radius: 14px;
+
+            transition: all 0.3s ease;
+        }
+
+
+        .about-development-card:hover {
+            transform: translateY(-6px);
+
+            border-color: #f5b62d;
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .about-development-icon {
+            font-size: 34px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .about-development-card h3 {
+            font-family: 'Playfair Display', serif;
+
+            color: #ffffff;
+
+            font-size: 23px;
+
+            line-height: 1.4;
+
+            margin-bottom: 12px;
+        }
+
+
+        .about-development-card p {
+            color: #cbd8e9;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            max-width: 270px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE DESIGN
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .about-development-section {
+                grid-template-columns: 1fr;
+
+                max-width: 550px;
+
+                gap: 25px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .about-development-section {
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 60px;
+            }
+
+            .about-development-card {
+                padding: 30px 22px;
+            }
+
+            .about-development-card h3 {
+                font-size: 21px;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         NAVBAR
+         ========================================================= -->
+
+    <header class="navbar">
+
+        <div class="navbar-container">
+
+            <a th:href="@{/}" class="college-brand">
+
+                <img th:src="@{/images/logo.jpg}" alt="Saraswati College of Engineering Logo" class="college-logo">
+
+                <div class="college-name">
+
+                    <h1>
+                        Saraswati College of Engineering
+                    </h1>
+
+                    <p>
+                        LEARN <span>•</span>
+                        INNOVATE <span>•</span>
+                        BUILD TOMORROW
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <nav class="navigation">
+
+                <a th:href="@{/home}" class="nav-link">
+                    Home
+                </a>
+
+                <a th:href="@{/about}" class="nav-link active">
+                    About
+                </a>
+
+                <a th:href="@{/courses}" class="nav-link">
+                    Courses
+                </a>
+
+                <a th:href="@{/contact}" class="nav-link">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <div class="auth-buttons">
+
+                <a th:href="@{/login}" class="login-btn">
+                    Login
+                </a>
+
+                <a th:href="@{/register}" class="register-btn">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main>
+
+
+        <!-- =====================================================
+             ABOUT HERO
+             ===================================================== -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="welcome-badge">
+                    ABOUT SARASWATI COLLEGE OF ENGINEERING
+                </div>
+
+                <h2>
+                    Building Knowledge,
+                    <span>Creating Possibilities</span>
+                </h2>
+
+                <p class="hero-description">
+                    Saraswati College of Engineering aims to provide an
+                    environment where students can develop knowledge,
+                    skills, confidence and innovative thinking.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             WHO WE ARE
+             ===================================================== -->
+
+        <section class="why-section">
+
+            <div class="why-content">
+
+                <span class="section-label">
+                    WHO WE ARE
+                </span>
+
+                <h2>
+                    An Environment for Growth
+                </h2>
+
+                <p>
+                    We believe that meaningful education combines academic
+                    knowledge with practical understanding, creativity and
+                    collaboration. Our approach encourages students to explore
+                    their interests while developing the skills required for
+                    their future.
+                </p>
+
+            </div>
+
+
+            <div class="why-decoration">
+
+                <div class="learn-text">
+                    Learn<br>
+                    Explore<br>
+                    Create
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             KNOWLEDGE • PRACTICAL LEARNING • DEVELOPMENT
+             ===================================================== -->
+
+        <section class="about-development-section">
+
+
+            <!-- KNOWLEDGE -->
+
+            <div class="about-development-card">
+
+                <div class="about-development-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Knowledge
+                </h3>
+
+                <p>
+                    Building strong academic and conceptual foundations.
+                </p>
+
+            </div>
+
+
+            <!-- PRACTICAL LEARNING -->
+
+            <div class="about-development-card">
+
+                <div class="about-development-icon">
+                    🔬
+                </div>
+
+                <h3>
+                    Practical Learning
+                </h3>
+
+                <p>
+                    Encouraging students to connect concepts with
+                    real-world applications.
+                </p>
+
+            </div>
+
+
+            <!-- DEVELOPMENT -->
+
+            <div class="about-development-card">
+
+                <div class="about-development-icon">
+                    🌱
+                </div>
+
+                <h3>
+                    Development
+                </h3>
+
+                <p>
+                    Supporting continuous personal and professional growth.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer class="footer">
+
+        <p>
+            © <span id="currentYear">2026</span>
+            Saraswati College of Engineering.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <script th:src="@{/js/script.js}"></script>
+
+
+</body>
+
+</html>
