@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +32,10 @@ public class AcademicBackendController {
         this.users = users;
     }
 
-    // Create the required tables automatically on startup.
+    // =====================================================
+    // DATABASE TABLE INITIALIZATION
+    // =====================================================
+
     @PostConstruct
     public void initializeTables() {
         db.execute("""
@@ -69,18 +74,25 @@ public class AcademicBackendController {
         """);
     }
 
+    // =====================================================
+    // AUTHORIZATION HELPERS
+    // =====================================================
+
     private void requireRole(Authentication auth, String role) {
         if (auth == null ||
             auth.getAuthorities().stream().noneMatch(
-                a -> a.getAuthority().equals("ROLE_" + role))) {
+                authority ->
+                    authority.getAuthority().equals("ROLE_" + role))) {
             throw new AccessDeniedException("Access denied");
         }
     }
 
     private boolean staff(Authentication auth) {
-        return auth != null && auth.getAuthorities().stream().anyMatch(
-            a -> a.getAuthority().equals("ROLE_ADMIN")
-              || a.getAuthority().equals("ROLE_EDUCATOR"));
+        return auth != null &&
+            auth.getAuthorities().stream().anyMatch(
+                authority ->
+                    authority.getAuthority().equals("ROLE_ADMIN")
+                    || authority.getAuthority().equals("ROLE_EDUCATOR"));
     }
 
     private String currentEmail(Authentication auth) {
@@ -92,12 +104,14 @@ public class AcademicBackendController {
     }
 
     // =====================================================
-    // ATTENDANCE
+    // STUDENT ATTENDANCE
+    // GET /student/attendance
     // =====================================================
 
     @GetMapping("/student/attendance")
     public String studentAttendance(
             Authentication auth, Model model) {
+
         requireRole(auth, "STUDENT");
 
         String email = currentEmail(auth);
@@ -114,8 +128,9 @@ public class AcademicBackendController {
                    COUNT(*) AS total_classes,
                    SUM(CASE WHEN present THEN 1 ELSE 0 END) AS attended,
                    ROUND(
-                     100.0 * SUM(CASE WHEN present THEN 1 ELSE 0 END)
-                     / COUNT(*), 2
+                       100.0 * SUM(
+                           CASE WHEN present THEN 1 ELSE 0 END
+                       ) / COUNT(*), 2
                    ) AS percentage
             FROM attendance_records
             WHERE LOWER(student_email) = LOWER(?)
@@ -129,27 +144,41 @@ public class AcademicBackendController {
         return "student/attendance";
     }
 
+    // =====================================================
+    // EDUCATOR ATTENDANCE
+    // GET /educator/attendance
+    // =====================================================
+
     @GetMapping("/educator/attendance")
     public String educatorAttendance(
             Authentication auth, Model model) {
+
         requireRole(auth, "EDUCATOR");
 
-        model.addAttribute("attendanceRecords",
+        model.addAttribute(
+            "attendanceRecords",
             db.queryForList("""
-                SELECT * FROM attendance_records
+                SELECT *
+                FROM attendance_records
                 ORDER BY attendance_date DESC
-                """));
+                """)
+        );
 
         return "educator/attendance";
     }
+
+    // =====================================================
+    // SAVE ATTENDANCE
+    // POST /educator/attendance/save
+    // =====================================================
 
     @PostMapping("/educator/attendance/save")
     public String saveAttendance(
             Authentication auth,
             @RequestParam String studentEmail,
             @RequestParam String subject,
-            @RequestParam @org.springframework.format.annotation.DateTimeFormat(
-                iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate attendanceDate,
             @RequestParam boolean present,
             RedirectAttributes redirect) {
@@ -159,52 +188,79 @@ public class AcademicBackendController {
         studentEmail = clean(studentEmail);
         subject = clean(subject);
 
-        if (studentEmail.isBlank() || subject.isBlank()
+        if (studentEmail.isBlank()
+                || subject.isBlank()
+                || subject.length() > 150
                 || !users.existsByEmail(studentEmail)
+                || attendanceDate == null
                 || attendanceDate.isAfter(LocalDate.now())) {
+
             redirect.addFlashAttribute(
-                "error", "Check the student, subject and date.");
+                "error",
+                "Check the student, subject and date."
+            );
+
             return "redirect:/educator/attendance";
         }
 
         try {
             db.update("""
                 INSERT INTO attendance_records
-                (student_email, subject, attendance_date, present)
+                    (student_email, subject, attendance_date, present)
                 VALUES (?, ?, ?, ?)
-                """, studentEmail, subject, attendanceDate, present);
+                """,
+                studentEmail,
+                subject,
+                attendanceDate,
+                present
+            );
 
             redirect.addFlashAttribute(
-                "message", "Attendance recorded successfully.");
+                "message",
+                "Attendance recorded successfully."
+            );
 
-        } catch (org.springframework.dao.DuplicateKeyException ex) {
+        } catch (DuplicateKeyException ex) {
             redirect.addFlashAttribute(
-                "error", "Attendance for this subject and date already exists.");
+                "error",
+                "Attendance for this subject and date already exists."
+            );
         }
 
         return "redirect:/educator/attendance";
     }
 
     // =====================================================
-    // SUBJECT-WISE GRADING
+    // STUDENT EXAMINATION RESULTS
+    // GET /student/examination
     // =====================================================
 
     @GetMapping("/student/examination")
     public String studentGrades(
             Authentication auth, Model model) {
+
         requireRole(auth, "STUDENT");
 
         model.addAttribute("grades", db.queryForList("""
-            SELECT subject, exam_name, marks_obtained, maximum_marks,
-                   ROUND(100.0 * marks_obtained / maximum_marks, 2)
-                       AS percentage,
+            SELECT subject,
+                   exam_name,
+                   marks_obtained,
+                   maximum_marks,
+                   ROUND(
+                       100.0 * marks_obtained / maximum_marks, 2
+                   ) AS percentage,
                    CASE
-                     WHEN 100.0 * marks_obtained / maximum_marks >= 90 THEN 'A+'
-                     WHEN 100.0 * marks_obtained / maximum_marks >= 80 THEN 'A'
-                     WHEN 100.0 * marks_obtained / maximum_marks >= 70 THEN 'B'
-                     WHEN 100.0 * marks_obtained / maximum_marks >= 60 THEN 'C'
-                     WHEN 100.0 * marks_obtained / maximum_marks >= 40 THEN 'D'
-                     ELSE 'F'
+                       WHEN 100.0 * marks_obtained / maximum_marks >= 90
+                           THEN 'A+'
+                       WHEN 100.0 * marks_obtained / maximum_marks >= 80
+                           THEN 'A'
+                       WHEN 100.0 * marks_obtained / maximum_marks >= 70
+                           THEN 'B'
+                       WHEN 100.0 * marks_obtained / maximum_marks >= 60
+                           THEN 'C'
+                       WHEN 100.0 * marks_obtained / maximum_marks >= 40
+                           THEN 'D'
+                       ELSE 'F'
                    END AS grade,
                    exam_date
             FROM subject_grades
@@ -215,18 +271,33 @@ public class AcademicBackendController {
         return "student/examination";
     }
 
+    // =====================================================
+    // EDUCATOR EXAMINATION / GRADES
+    // GET /educator/examination
+    // =====================================================
+
     @GetMapping("/educator/examination")
     public String educatorGrades(
             Authentication auth, Model model) {
+
         requireRole(auth, "EDUCATOR");
 
-        model.addAttribute("grades", db.queryForList("""
-            SELECT * FROM subject_grades
-            ORDER BY subject, exam_date DESC
-            """));
+        model.addAttribute(
+            "grades",
+            db.queryForList("""
+                SELECT *
+                FROM subject_grades
+                ORDER BY subject, exam_date DESC
+                """)
+        );
 
         return "educator/examination";
     }
+
+    // =====================================================
+    // SAVE STUDENT GRADES
+    // POST /educator/examination/save
+    // =====================================================
 
     @PostMapping("/educator/examination/save")
     public String saveGrade(
@@ -237,8 +308,7 @@ public class AcademicBackendController {
             @RequestParam double marksObtained,
             @RequestParam double maximumMarks,
             @RequestParam(required = false)
-            @org.springframework.format.annotation.DateTimeFormat(
-                iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate examDate,
             RedirectAttributes redirect) {
 
@@ -248,51 +318,77 @@ public class AcademicBackendController {
         subject = clean(subject);
         examName = clean(examName);
 
-        if (!users.existsByEmail(studentEmail)
-                || subject.isBlank() || examName.isBlank()
-                || subject.length() > 150 || examName.length() > 150
+        if (studentEmail.isBlank()
+                || !users.existsByEmail(studentEmail)
+                || subject.isBlank()
+                || examName.isBlank()
+                || subject.length() > 150
+                || examName.length() > 150
                 || !Double.isFinite(marksObtained)
                 || !Double.isFinite(maximumMarks)
-                || maximumMarks <= 0 || marksObtained < 0
+                || maximumMarks <= 0
+                || marksObtained < 0
                 || marksObtained > maximumMarks) {
 
             redirect.addFlashAttribute(
-                "error", "Please enter valid student and marks details.");
+                "error",
+                "Please enter valid student and marks details."
+            );
+
             return "redirect:/educator/examination";
         }
 
         db.update("""
             INSERT INTO subject_grades
-            (student_email, subject, exam_name, marks_obtained,
-             maximum_marks, exam_date)
+                (student_email, subject, exam_name,
+                 marks_obtained, maximum_marks, exam_date)
             VALUES (?, ?, ?, ?, ?, ?)
-            """, studentEmail, subject, examName,
-                 marksObtained, maximumMarks, examDate);
+            """,
+            studentEmail,
+            subject,
+            examName,
+            marksObtained,
+            maximumMarks,
+            examDate
+        );
 
         redirect.addFlashAttribute(
-            "message", "Subject-wise marks saved successfully.");
+            "message",
+            "Subject-wise marks saved successfully."
+        );
 
         return "redirect:/educator/examination";
     }
 
     // =====================================================
     // STUDENT SUPPORT TICKETS
+    // GET /student/my-tickets
     // =====================================================
 
     @GetMapping("/student/my-tickets")
     public String studentTickets(
             Authentication auth, Model model) {
+
         requireRole(auth, "STUDENT");
 
-        model.addAttribute("tickets", db.queryForList("""
-            SELECT id, subject, category, description, status, created_at
-            FROM support_tickets
-            WHERE LOWER(student_email) = LOWER(?)
-            ORDER BY created_at DESC
-            """, currentEmail(auth)));
+        model.addAttribute(
+            "tickets",
+            db.queryForList("""
+                SELECT id, subject, category, description,
+                       status, created_at
+                FROM support_tickets
+                WHERE LOWER(student_email) = LOWER(?)
+                ORDER BY created_at DESC
+                """, currentEmail(auth))
+        );
 
         return "student/my-tickets";
     }
+
+    // =====================================================
+    // RAISE SUPPORT TICKET
+    // POST /student/raise-ticket
+    // =====================================================
 
     @PostMapping("/student/raise-ticket")
     public String raiseTicket(
@@ -309,53 +405,97 @@ public class AcademicBackendController {
         description = clean(description);
 
         Set<String> categories = Set.of(
-            "ACADEMIC", "ATTENDANCE", "EXAMINATION",
-            "SUBMISSION", "TECHNICAL", "OTHER");
+            "ACADEMIC",
+            "ATTENDANCE",
+            "EXAMINATION",
+            "SUBMISSION",
+            "TECHNICAL",
+            "OTHER"
+        );
 
-        if (subject.isBlank() || subject.length() > 150
-                || description.isBlank() || description.length() > 1000
+        if (subject.isBlank()
+                || subject.length() > 150
+                || description.isBlank()
+                || description.length() > 1000
                 || !categories.contains(category)) {
 
             redirect.addFlashAttribute(
-                "error", "Please enter valid ticket details.");
+                "error",
+                "Please enter valid ticket details."
+            );
+
             return "redirect:/student/raise-ticket";
         }
 
         db.update("""
             INSERT INTO support_tickets
-            (student_email, subject, category, description, status)
+                (student_email, subject, category, description, status)
             VALUES (?, ?, ?, ?, 'OPEN')
-            """, currentEmail(auth), subject, category, description);
+            """,
+            currentEmail(auth),
+            subject,
+            category,
+            description
+        );
 
         redirect.addFlashAttribute(
-            "message", "Your support ticket has been raised.");
+            "message",
+            "Your support ticket has been raised."
+        );
 
         return "redirect:/student/my-tickets";
     }
 
+    // =====================================================
+    // ADMIN SUPPORT TICKETS
+    // GET /admin/tickets
+    // =====================================================
+
     @GetMapping("/admin/tickets")
     public String adminTickets(
             Authentication auth, Model model) {
+
         requireRole(auth, "ADMIN");
 
-        model.addAttribute("tickets", db.queryForList("""
-            SELECT * FROM support_tickets ORDER BY created_at DESC
-            """));
+        model.addAttribute(
+            "tickets",
+            db.queryForList("""
+                SELECT *
+                FROM support_tickets
+                ORDER BY created_at DESC
+                """)
+        );
 
         return "admin/tickets";
     }
+
+    // =====================================================
+    // EDUCATOR SUPPORT TICKETS
+    // GET /educator/tickets
+    // =====================================================
 
     @GetMapping("/educator/tickets")
     public String educatorTickets(
             Authentication auth, Model model) {
+
         requireRole(auth, "EDUCATOR");
 
-        model.addAttribute("tickets", db.queryForList("""
-            SELECT * FROM support_tickets ORDER BY created_at DESC
-            """));
+        model.addAttribute(
+            "tickets",
+            db.queryForList("""
+                SELECT *
+                FROM support_tickets
+                ORDER BY created_at DESC
+                """)
+        );
 
         return "admin/tickets";
     }
+
+    // =====================================================
+    // UPDATE SUPPORT TICKET STATUS
+    // POST /admin/tickets/update
+    // =====================================================
 
     @PostMapping("/admin/tickets/update")
     public String updateTicket(
@@ -370,19 +510,33 @@ public class AcademicBackendController {
 
         status = clean(status);
 
-        if (!Set.of("OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED")
-                .contains(status)) {
-            redirect.addFlashAttribute("error", "Invalid ticket status.");
+        if (!Set.of(
+                "OPEN",
+                "IN_PROGRESS",
+                "RESOLVED",
+                "CLOSED"
+            ).contains(status)) {
+
+            redirect.addFlashAttribute(
+                "error",
+                "Invalid ticket status."
+            );
+
             return "redirect:/admin/tickets";
         }
 
         int updated = db.update("""
-            UPDATE support_tickets SET status = ? WHERE id = ?
+            UPDATE support_tickets
+            SET status = ?
+            WHERE id = ?
             """, status, ticketId);
 
         redirect.addFlashAttribute(
             updated == 1 ? "message" : "error",
-            updated == 1 ? "Ticket status updated." : "Ticket not found.");
+            updated == 1
+                ? "Ticket status updated."
+                : "Ticket not found."
+        );
 
         return "redirect:/admin/tickets";
     }
