@@ -32,16 +32,6 @@ public class PageController {
         return "contact";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
     @GetMapping("/first-time-user")
     public String firstTimeUser() {
         return "first-time-user";
