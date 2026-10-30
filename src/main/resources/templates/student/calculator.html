@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score & CGPA Calculator | Student Portal</title>
+    <link rel="stylesheet" th:href="@{/css/student.css}">
+    <style>
+        .calculator-panel {
+            background: rgba(10, 42, 82, 0.95);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border: 1px solid rgba(212, 168, 74, 0.3);
+            margin-bottom: 30px;
+        }
+        .add-subject-form {
+            background: #07152d;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 168, 74, 0.3);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .add-subject-form input, .add-subject-form select {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #d4a84a;
+            background: #0a2a52;
+            color: #fff;
+            font-size: 13px;
+        }
+        .add-subject-form button {
+            background: #d4a84a;
+            color: #07152d;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .add-subject-form button:hover {
+            background: #f3c669;
+        }
+        .calc-table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #ffffff;
+            font-size: 13px;
+        }
+        .calc-table th, .calc-table td {
+            border: 1px solid rgba(212, 168, 74, 0.25);
+            padding: 12px 10px;
+            text-align: center;
+        }
+        .calc-table th {
+            background-color: #07152d;
+            color: #d4a84a;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        .calc-table td.text-left { text-align: left; }
+        .summary-box {
+            display: flex;
+            justify-content: space-around;
+            background: #07152d;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #d4a84a;
+            margin-top: 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .summary-box h3 {
+            color: #d4a84a;
+            font-size: 24px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body class="student-page">
+
+    <aside class="student-sidebar">
+        <div class="student-brand">
+            <img th:src="@{/images/logo.jpg}" alt="Logo" class="student-logo">
+            <div class="student-brand-text">
+                <h2>Student Portal</h2>
+                <span>Saraswati College</span>
+            </div>
+        </div>
+        <nav class="student-navigation">
+            <a th:href="@{/student/dashboard}" class="student-nav-link"><span>📊</span><span>Dashboard</span></a>
+            <a th:href="@{/student/examination}" class="student-nav-link"><span>📝</span><span>Grade Card & Examination</span></a>
+            <a th:href="@{/student/attendance}" class="student-nav-link"><span>📅</span><span>Attendance</span></a>
+            <a th:href="@{/student/calculator}" class="student-nav-link active"><span>🧮</span><span>Score & CGPA Calculator</span></a>
+            <a th:href="@{/student/submissions}" class="student-nav-link"><span>📤</span><span>Submissions</span></a>
+            <a th:href="@{/student/raise-ticket}" class="student-nav-link"><span>🎫</span><span>Raise Ticket</span></a>
+            <a th:href="@{/student/my-tickets}" class="student-nav-link"><span>📋</span><span>My Tickets</span></a>
+        </nav>
+        <div class="student-sidebar-bottom">
+            <a th:href="@{/}" class="student-nav-link"><span>⌂</span><span>Home</span></a>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="student-nav-link logout-button"><span>↪</span><span>Logout</span></button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="student-main">
+        <header class="student-topbar">
+            <div>
+                <span class="student-page-label">STUDENT PORTAL</span>
+                <h1>Score & CGPA Calculator</h1>
+            </div>
+            <div class="student-profile">
+                <div class="profile-icon">🎓</div>
+                <div>
+                    <strong>Student</strong>
+                    <span>Academic Student</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="student-welcome">
+            <span class="section-label">PERFORMANCE ESTIMATOR</span>
+            <h2>Cumulative Grade Point Average (CGPA) Breakdown</h2>
+            <p>Review seeded IT subjects or add custom courses below to simulate your semester CGPA live.</p>
+        </section>
+
+        <!-- CALCULATOR PANEL -->
+        <div class="calculator-panel">
+            <h3 style="color: #d4a84a; margin-bottom: 15px; font-family: Georgia, serif;">Enrolled Subject Performance</h3>
+
+            <!-- Add Subject Form -->
+            <form id="addSubjectForm" class="add-subject-form">
+                <input type="text" id="newCode" placeholder="Course Code (e.g. IT307)" required style="width: 130px;">
+                <input type="text" id="newSubject" placeholder="Subject Name" required style="flex-grow: 1; min-width: 200px;">
+                <select id="newCredits" style="width: 90px;">
+                    <option value="4.0">4 Credits</option>
+                    <option value="3.0" selected>3 Credits</option>
+                    <option value="2.0">2 Credits</option>
+                    <option value="1.0">1 Credit</option>
+                </select>
+                <input type="number" id="newMarks" placeholder="Marks (0-150)" min="0" max="150" required style="width: 110px;">
+                <button type="submit">+ Add Subject</button>
+            </form>
+
+            <table class="calc-table" id="calcTable">
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th class="text-left">Subject Name</th>
+                        <th>Vertical</th>
+                        <th>AM</th>
+                        <th>Credits (Cr)</th>
+                        <th>Total Obtained</th>
+                        <th>Grade</th>
+                        <th>Grade Point (GP)</th>
+                        <th>Credit Points (Cr × GP)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${grades != null and !#lists.isEmpty(grades)}" th:each="g : ${grades}">
+                        <td th:text="${g['course_code']}">IT301</td>
+                        <td class="text-left" th:text="${g['subject']}">Applied Mathematics-III</td>
+                        <td th:text="${g['vertical']}">CORE</td>
+                        <td th:text="${g['am']}">TH</td>
+                        <td class="credits" th:text="${g['credits']}">4.00</td>
+                        <td th:text="${g['total_obt']}">109</td>
+                        <td class="grade" style="font-weight: bold; color: #4491d2;" th:text="${g['grade']}">A+</td>
+                        <td class="gp" th:text="${g['grade'] == 'O' ? '10.00' : (g['grade'] == 'A+' ? '9.00' : (g['grade'] == 'A' ? '8.00' : (g['grade'] == 'B+' ? '7.00' : (g['grade'] == 'B' ? '6.00' : (g['grade'] == 'C' ? '5.00' : (g['grade'] == 'P' ? '4.00' : '0.00'))))))}">9.00</td>
+                        <td class="cp" th:text="${g['credits'] * (g['grade'] == 'O' ? 10.00 : (g['grade'] == 'A+' ? 9.00 : (g['grade'] == 'A' ? 8.00 : (g['grade'] == 'B+' ? 7.00 : (g['grade'] == 'B' ? 6.00 : (g['grade'] == 'C' ? 5.00 : (g['grade'] == 'P' ? 4.00 : 0.00)))))))}">36.00</td>
+                    </tr>
+                    <tr th:if="${grades == null or #lists.isEmpty(grades)}">
+                        <td colspan="9" style="text-align: center; padding: 20px; color: #aaa;">No subjects found in database.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Summary Box -->
+            <div class="summary-box">
+                <div>
+                    <span>Total Credits Registered</span>
+                    <h3 id="totalCredits">20.00</h3>
+                </div>
+                <div>
+                    <span>Total Credit Points Earned</span>
+                    <h3 id="totalCreditPoints">175.00</h3>
+                </div>
+                <div>
+                    <span>Estimated CGPA</span>
+                    <h3 id="finalCgpa" style="color: #4491d2;">8.75</h3>
+                </div>
+            </div>
+        </div>
+
+        <footer class="student-footer">
+            <p>&copy; 2026 Saraswati College of Engineering. Student Portal.</p>
+        </footer>
+    </main>
+
+    <script>
+        function recalculateCGPA() {
+            const rows = document.querySelectorAll("#calcTable tbody tr");
+            let totalCr = 0;
+            let totalCp = 0;
+
+            rows.forEach(row => {
+                const crEl = row.querySelector(".credits");
+                const cpEl = row.querySelector(".cp");
+                if (crEl && cpEl) {
+                    const cr = parseFloat(crEl.innerText) || 0;
+                    const cp = parseFloat(cpEl.innerText) || 0;
+                    totalCr += cr;
+                    totalCp += cp;
+                }
+            });
+
+            if (totalCr > 0) {
+                const cgpa = (totalCp / totalCr).toFixed(2);
+                document.getElementById("totalCredits").innerText = totalCr.toFixed(2);
+                document.getElementById("totalCreditPoints").innerText = totalCp.toFixed(2);
+                document.getElementById("finalCgpa").innerText = cgpa;
+            } else {
+                document.getElementById("totalCredits").innerText = "0.00";
+                document.getElementById("totalCreditPoints").innerText = "0.00";
+                document.getElementById("finalCgpa").innerText = "0.00";
+            }
+        }
+
+        document.getElementById("addSubjectForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const code = document.getElementById("newCode").value.trim();
+            const name = document.getElementById("newSubject").value.trim();
+            const credits = parseFloat(document.getElementById("newCredits").value);
+            const marks = parseFloat(document.getElementById("newMarks").value);
+
+            // Calculate percentage & grade
+            const pct = (marks / 150) * 100;
+            let grade = 'F';
+            let gp = 0.0;
+
+            if (pct >= 90) { grade = 'O'; gp = 10.0; }
+            else if (pct >= 80) { grade = 'A+'; gp = 9.0; }
+            else if (pct >= 70) { grade = 'A'; gp = 8.0; }
+            else if (pct >= 60) { grade = 'B+'; gp = 7.0; }
+            else if (pct >= 55) { grade = 'B'; gp = 6.0; }
+            else if (pct >= 50) { grade = 'C'; gp = 5.0; }
+            else if (pct >= 40) { grade = 'P'; gp = 4.0; }
+
+            const cp = credits * gp;
+
+            const tbody = document.querySelector("#calcTable tbody");
+            // Remove empty placeholder row if present
+            const emptyRow = tbody.querySelector("td[colspan='9']");
+            if (emptyRow) emptyRow.parentElement.remove();
+
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${code}</td>
+                <td class="text-left">${name}</td>
+                <td>CORE</td>
+                <td>TH</td>
+                <td class="credits">${credits.toFixed(2)}</td>
+                <td>${marks}</td>
+                <td class="grade" style="font-weight: bold; color: #4491d2;">${grade}</td>
+                <td class="gp">${gp.toFixed(2)}</td>
+                <td class="cp">${cp.toFixed(2)}</td>
+            `;
+            tbody.appendChild(newRow);
+
+            // Reset form
+            this.reset();
+            recalculateCGPA();
+        });
+
+        // Run calculation on load
+        document.addEventListener("DOMContentLoaded", recalculateCGPA);
+    </script>
+</body>
+</html>

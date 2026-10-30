@@ -81,9 +81,4 @@ public class PageController {
     public String studentSubmissions() {
         return "student/submissions";
     }
-
-    @GetMapping("/student/raise-ticket")
-    public String raiseTicket() {
-        return "student/raise-ticket";
-    }
 }
