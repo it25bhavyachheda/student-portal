@@ -37,11 +37,6 @@ public class PageController {
         return "first-time-user";
     }
 
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard() {
-        return "admin/dashboard";
-    }
-
     @GetMapping("/admin/students")
     public String adminStudents() {
         return "admin/students";

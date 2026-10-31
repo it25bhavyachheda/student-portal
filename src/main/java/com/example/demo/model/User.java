@@ -1,3 +1,4 @@
+
 package com.example.demo.model;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     @Column(unique = true, nullable = false)
@@ -26,15 +28,19 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    // Default constructor
     public User() {
     }
 
+    // Parameterized constructor
     public User(String name, String email, String password, String role) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
     }
+
+    // Getters and Setters
 
     public Long getId() {
         return id;

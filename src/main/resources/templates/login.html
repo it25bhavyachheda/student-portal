@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -21,16 +22,11 @@
                 ×
             </a>
 
-
             <!-- Heading -->
             <div class="login-heading">
-
                 <h1>Welcome Back</h1>
-
                 <p>Login to your learning account</p>
-
             </div>
-
 
             <!-- Role Selection -->
             <div class="login-role-section">
@@ -41,54 +37,38 @@
 
                 <div class="login-role-options">
 
-                    <!-- Admin -->
                     <button type="button"
-                            class="login-role-card active"
+                            class="login-role-card"
                             data-role="Admin"
                             data-description="Access your administrative dashboard">
 
                         <span class="login-role-icon">⚙️</span>
-
-                        <span class="login-role-name">
-                            Admin
-                        </span>
+                        <span class="login-role-name">Admin</span>
 
                     </button>
 
-
-                    <!-- Educator -->
                     <button type="button"
                             class="login-role-card"
                             data-role="Educator"
                             data-description="Access your educator dashboard">
 
                         <span class="login-role-icon">👨‍🏫</span>
-
-                        <span class="login-role-name">
-                            Educator
-                        </span>
+                        <span class="login-role-name">Educator</span>
 
                     </button>
 
-
-                    <!-- Student -->
                     <button type="button"
-                            class="login-role-card"
+                            class="login-role-card active"
                             data-role="Student"
                             data-description="Access your student dashboard">
 
                         <span class="login-role-icon">🎓</span>
-
-                        <span class="login-role-name">
-                            Student
-                        </span>
+                        <span class="login-role-name">Student</span>
 
                     </button>
 
                 </div>
-
             </div>
-
 
             <!-- Login / Register Switch -->
             <div class="login-register-switch">
@@ -102,7 +82,6 @@
                 </a>
 
             </div>
-
 
             <!-- Messages -->
             <div class="login-messages">
@@ -121,9 +100,10 @@
 
             </div>
 
-
             <!-- Login Form -->
-            <form th:action="@{/login}" method="post" class="login-form">
+            <form th:action="@{/login}"
+                  method="post"
+                  class="login-form">
 
                 <!-- CSRF Protection -->
                 <input type="hidden"
@@ -141,10 +121,10 @@
                            id="email"
                            name="email"
                            placeholder="Enter your email"
+                           autocomplete="username"
                            required>
 
                 </div>
-
 
                 <!-- Password -->
                 <div class="login-input-group">
@@ -157,32 +137,30 @@
                            id="password"
                            name="password"
                            placeholder="Enter your password"
+                           autocomplete="current-password"
                            required>
 
                 </div>
-
 
                 <!-- Login Button -->
                 <button type="submit"
                         class="login-submit-button"
                         id="loginSubmitButton">
 
-                    Login as Admin
+                    Login as Student
 
                 </button>
 
             </form>
 
-
             <!-- Role Description -->
             <p class="login-role-description" id="roleDescription">
-                Access your administrative dashboard
+                Access your student dashboard
             </p>
 
         </div>
 
     </div>
-
 
     <script>
 
@@ -213,5 +191,4 @@
     </script>
 
 </body>
-
 </html>

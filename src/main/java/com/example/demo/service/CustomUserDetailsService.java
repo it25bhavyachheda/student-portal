@@ -1,3 +1,4 @@
+
 package com.example.demo.service;
 
 import com.example.demo.model.User;
@@ -21,15 +22,19 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(email)
+        String normalizedEmail = email.trim().toLowerCase();
+
+        User user = userRepository.findByEmail(normalizedEmail)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(
-                                "User not found with email: " + email));
+                    new UsernameNotFoundException(
+                        "User not found: " + normalizedEmail
+                    )
+                );
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .roles(user.getRole())
+                .authorities(user.getRole())
                 .build();
     }
 }
